@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AreYuHere</string>
+    <string name="username">User ID:</string>
+    <string name="password">Password:</string>
+    <string name="login">Log In</string>
+    <string name="title">ARE YU HERE?</string>
+    <string name="code">Code:</string>
+    <string name="checkin">Check In</string>
+</resources>
