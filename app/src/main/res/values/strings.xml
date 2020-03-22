@@ -6,4 +6,8 @@
     <string name="title">ARE YU HERE?</string>
     <string name="code">Code:</string>
     <string name="checkin">Check In</string>
+    <string name = "generate_code">Generate Code</string>
+    <string name="checkout">Check Out</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

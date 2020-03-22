@@ -7,19 +7,21 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/code_generate"
+        android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="82dp"
         android:text="@string/generate_code"
-        app:layout_constraintBottom_toTopOf="@+id/studentList"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/studentList"
-        android:layout_width="402dp"
-        android:layout_height="452dp"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="278dp" />
+        android:layout_width="729dp"
+        android:layout_height="244dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

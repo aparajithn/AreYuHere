@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/signInFragment">
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.areyuhere.SignInFragment"
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment_to_studentHomeFragment"
+            app:destination="@id/studentHomeFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_teacherHomeFragment"
+            app:destination="@id/teacherHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentHomeFragment"
+        android:name="com.example.areyuhere.StudentHomeFragment"
+        android:label="StudentHomeFragment" >
+        <action
+            android:id="@+id/action_studentHomeFragment_to_studentCheckOutFragment"
+            app:destination="@id/studentCheckOutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherHomeFragment"
+        android:name="com.example.areyuhere.TeacherHomeFragment"
+        android:label="TeacherHomeFragment" >
+        <action
+            android:id="@+id/action_teacherHomeFragment_to_teacherCheckoutFragment"
+            app:destination="@id/teacherCheckoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentCheckOutFragment"
+        android:name="com.example.areyuhere.StudentCheckOutFragment"
+        android:label="StudentCheckOutFragment" />
+    <fragment
+        android:id="@+id/teacherCheckoutFragment"
+        android:name="com.example.areyuhere.TeacherCheckoutFragment"
+        android:label="TeacherCheckoutFragment" />
 </navigation>

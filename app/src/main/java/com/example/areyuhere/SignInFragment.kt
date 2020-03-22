@@ -1,4 +1,7 @@
 package com.example.areyuhere
 
-class SignInFragment {
+import androidx.fragment.app.Fragment
+
+class SignInFragment :Fragment(){
+
 }
