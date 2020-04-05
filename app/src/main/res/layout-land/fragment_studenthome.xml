@@ -17,7 +17,7 @@
         tools:layout_editor_absoluteY="189dp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/code"
         android:layout_width="140dp"
         android:layout_height="47dp"
         android:layout_marginEnd="192dp"
@@ -27,7 +27,7 @@
         tools:layout_editor_absoluteY="182dp"></EditText>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/checkin_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/checkin"

@@ -1,0 +1,9 @@
+Your name:Aparajith Nagarajan
+Your partner's name: Richard Sevic 
+Grade you expect to receive for this assignment (0~100%): 100
+Your contribution to the assignment (0~100%): 50
+Your partner's contribution to the assignment (0~100%): 50
+
+Comments regarding your or your partner's contribution to the project (if any):
+
+Comments:We made a viewmodel for our app and created dummy users for a teacher and a student. We then added the logic to navigate through sign in to the respective homes and the checkin/checkout(student) or generate code(teacher). We also fixed minor bugs with UI/constraints.

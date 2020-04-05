@@ -10,12 +10,9 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="331dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="17dp"
+        android:layout_width="101dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="100dp"
         android:text="@string/code"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/checkin_button"
@@ -25,29 +22,24 @@
 
     <EditText
         android:id="@+id/code"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="331dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginRight="95dp"
-        android:layout_marginBottom="21dp"
+        android:layout_width="100dp"
+        android:layout_height="21dp"
+        android:layout_marginEnd="100dp"
         android:background="@drawable/edit_text_border"
         app:layout_constraintBottom_toTopOf="@+id/checkin_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent"></EditText>
 
     <Button
         android:id="@+id/checkin_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="311dp"
+        android:layout_marginBottom="200dp"
         android:text="@string/checkin"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/code"></Button>
+        app:layout_constraintStart_toStartOf="parent"></Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
