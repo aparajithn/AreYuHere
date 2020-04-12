@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlin.math.log
 
 private const val TAG = "SigninFragment"
@@ -35,6 +37,10 @@ class SignInFragment :Fragment(){
         password = view.findViewById(R.id.password)
 
         loginButton.setOnClickListener{
+            // Write a message to the database
+            val database = Firebase.database
+            val myRef = database.getReference("message")
+            myRef.setValue("Hello, World!")
             Log.d(TAG,"Log in pressed")
             Log.d(TAG, username.text.toString())
             if(username.text.toString().equals(viewModel.userName) && password.text.toString().equals(viewModel.password)) {

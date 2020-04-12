@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "452410092136",
+    "firebase_url": "https://areyh-ed8bd.firebaseio.com",
+    "project_id": "areyh-ed8bd",
+    "storage_bucket": "areyh-ed8bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452410092136:android:5a7426569ee3810c3ba9dd",
+        "android_client_info": {
+          "package_name": "com.example.areyuhere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452410092136-un1e3lcvh0a1qbgk80m3o0rmh4jag3j3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbgj-MD87AsPwL6aUx72dCpvpq4yIAMmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452410092136-un1e3lcvh0a1qbgk80m3o0rmh4jag3j3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
