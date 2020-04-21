@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -35,6 +36,7 @@ class StudentHomeFragment:Fragment() {
 
         check_in_button = view.findViewById(R.id.checkin_button)
         code_edittext = view.findViewById(R.id.code)
+        //Read code in database
         viewModel.code_ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -51,14 +53,18 @@ class StudentHomeFragment:Fragment() {
 
 
         check_in_button.setOnClickListener{
-            val database = Firebase.database
-            val myRef = database.getReference("message")
-            myRef.setValue("Hello, World2!")
-            Log.d(TAG,"Check in clicked")
+//            val database = Firebase.database
+//            val myRef = database.getReference("message")
+//            myRef.setValue("Hello, World2!")
+//            Log.d(TAG,"Check in clicked")
+            //check if code is correct
             if(code_edittext.text.toString().equals(checkin_code)) {
-                Log.d(TAG,"Navigating to student checkout")
+//                Log.d(TAG,"Navigating to student checkout")
                 Navigation.createNavigateOnClickListener(R.id.action_studentHomeFragment_to_studentCheckOutFragment)
                 view.findNavController().navigate(R.id.action_studentHomeFragment_to_studentCheckOutFragment)
+
+                Toast.makeText(context, "Checked in!", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
         return view

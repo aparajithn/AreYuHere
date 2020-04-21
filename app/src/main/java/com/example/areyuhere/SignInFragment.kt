@@ -12,7 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlin.math.log
 
@@ -22,6 +27,8 @@ class SignInFragment :Fragment(){
     private lateinit var loginButton: Button
     private lateinit var username:EditText
     private lateinit var password:EditText
+    private lateinit var auth: FirebaseAuth
+    var teacher_email = ""
 
 
     val viewModel: UserViewModel by activityViewModels()
@@ -35,32 +42,65 @@ class SignInFragment :Fragment(){
         loginButton =view.findViewById(R.id.login_button)
         username = view.findViewById(R.id.username)
         password = view.findViewById(R.id.password)
+        auth = FirebaseAuth.getInstance()
+        viewModel.isTeacher.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val value = dataSnapshot.getValue<String>()
+                 teacher_email = value.toString()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+            }
+        })
 
         loginButton.setOnClickListener{
-            // Write a message to the database
-            val database = Firebase.database
-            val myRef = database.getReference("message")
-            myRef.setValue("Hello, World!")
-            Log.d(TAG,"Log in pressed")
-            Log.d(TAG, username.text.toString())
-            if(username.text.toString().equals(viewModel.userName) && password.text.toString().equals(viewModel.password)) {
-                if(!viewModel.status) {
-                    Log.d(TAG,"Navigate to student home")
-                    Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_studentHomeFragment)
-                    view.findNavController().navigate(R.id.action_signInFragment_to_studentHomeFragment)
+            auth.signInWithEmailAndPassword(username.text.toString(), password.text.toString())
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithEmail:success")
+                        val user = auth.currentUser
+                        if(username.text.toString() == teacher_email){
+                            Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_teacherHomeFragment)
+                            view.findNavController().navigate(R.id.action_signInFragment_to_teacherHomeFragment)
+                        }
+                        else
+                        {
+                            Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_studentHomeFragment)
+                            view.findNavController().navigate(R.id.action_signInFragment_to_studentHomeFragment)
+                        }
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Toast.makeText(context, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-            else if(username.text.toString().equals(viewModel.userName1) && password.text.toString().equals(viewModel.password1)) {
-                if(viewModel.status1) {
-                    Log.d(TAG,"Navigate to teacher home")
-                    Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_teacherHomeFragment)
-                    view.findNavController().navigate(R.id.action_signInFragment_to_teacherHomeFragment)
-                }
-            }
-            else {
-                Toast.makeText(context, "Enter valid credentials!", Toast.LENGTH_SHORT)
-                    .show()
-            }
+//            Log.d(TAG,"Log in pressed")
+//            Log.d(TAG, username.text.toString())
+//            if(username.text.toString().equals(viewModel.userName) && password.text.toString().equals(viewModel.password)) {
+//                if(!viewModel.status) {
+//                    Log.d(TAG,"Navigate to student home")
+//                    Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_studentHomeFragment)
+//                    view.findNavController().navigate(R.id.action_signInFragment_to_studentHomeFragment)
+//                }
+//            }
+//            else if(username.text.toString().equals(viewModel.userName1) && password.text.toString().equals(viewModel.password1)) {
+//                if(viewModel.status1) {
+//                    Log.d(TAG,"Navigate to teacher home")
+//                    Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_teacherHomeFragment)
+//                    view.findNavController().navigate(R.id.action_signInFragment_to_teacherHomeFragment)
+//                }
+//            }
+//            else {
+//                Toast.makeText(context, "Enter valid credentials!", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
         }
         return view
 

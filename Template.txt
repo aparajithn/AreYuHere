@@ -6,4 +6,4 @@ Your partner's contribution to the assignment (0~100%): 50
 
 Comments regarding your or your partner's contribution to the project (if any):
 
-Comments:We made a viewmodel for our app and created dummy users for a teacher and a student. We then added the logic to navigate through sign in to the respective homes and the checkin/checkout(student) or generate code(teacher). We also fixed minor bugs with UI/constraints.
+Comments:This week we added Firebase to our app to add in real-time database functionalities. We now can generate a code on the teacher side, have it update real-time in our database, and students can check in using that code (and it verifies by checking what the student types against the code in the database). This is all done real time and over the internet.

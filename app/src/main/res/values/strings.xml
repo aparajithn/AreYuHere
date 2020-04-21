@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">AreYuHere</string>
-    <string name="username">User ID:</string>
+    <string name="username">Email:</string>
     <string name="password">Password:</string>
     <string name="login">Log In</string>
     <string name="title">ARE YU HERE?</string>
-    <string name="code">Code:</string>
+    <string name="code">Enter Code:</string>
     <string name="checkin">Check In</string>
     <string name = "generate_code">Generate Code</string>
     <string name="checkout">Check Out</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="checkedin">Currently checked in!</string>
 </resources>

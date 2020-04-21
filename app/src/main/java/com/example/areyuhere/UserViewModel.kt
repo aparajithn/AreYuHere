@@ -24,6 +24,7 @@ class UserViewModel : ViewModel() {
     //database instance for firebase
     val database = Firebase.database
     val code_ref = database.getReference("code")
+    val isTeacher = database.getReference("teacher")
 
     fun getStat(): Boolean {
     return status

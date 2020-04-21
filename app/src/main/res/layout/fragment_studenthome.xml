@@ -10,25 +10,26 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="101dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="100dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="150dp"
         android:text="@string/code"
+        android:textSize="25dp"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/checkin_button"
-        app:layout_constraintEnd_toStartOf="@+id/code"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <EditText
         android:id="@+id/code"
-        android:layout_width="100dp"
-        android:layout_height="21dp"
-        android:layout_marginEnd="100dp"
-        android:background="@drawable/edit_text_border"
-        app:layout_constraintBottom_toTopOf="@+id/checkin_button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></EditText>
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"></EditText>
 
     <Button
         android:id="@+id/checkin_button"
@@ -36,10 +37,21 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="200dp"
         android:text="@string/checkin"
+        android:textSize="20dp"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"></Button>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/checkin_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/code"
+        app:srcCompat="@drawable/lock" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
