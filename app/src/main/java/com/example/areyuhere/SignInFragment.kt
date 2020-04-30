@@ -29,6 +29,7 @@ class SignInFragment :Fragment(){
     private lateinit var password:EditText
     private lateinit var auth: FirebaseAuth
     var teacher_email = ""
+    private var counter = 0
 
 
     val viewModel: UserViewModel by activityViewModels()
@@ -56,6 +57,34 @@ class SignInFragment :Fragment(){
                 // Failed to read value
             }
         })
+        viewModel.getStatus.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                viewModel.children_count = dataSnapshot.childrenCount
+                if (viewModel.userList.isNullOrEmpty()){
+                    for (snapshot in dataSnapshot.children) {
+                        val user = User()
+                        user.id = snapshot.key.toString()
+                        counter = 0
+                        for (s2 in snapshot.children) {
+                            if (counter == 1) {
+                                user.name = s2.value.toString()
+                            }
+                            if (counter == 2) {
+                                user.isCheckedin = s2.value.toString()
+                            }
+
+
+                            counter++
+                        }
+                        viewModel.userList += user
+                    }
+                }
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
 
         loginButton.setOnClickListener{
             auth.signInWithEmailAndPassword(username.text.toString(), password.text.toString())
@@ -64,6 +93,7 @@ class SignInFragment :Fragment(){
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
+                        viewModel.currentEmail=user?.email.toString()
                         if(username.text.toString() == teacher_email){
                             Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_teacherHomeFragment)
                             view.findNavController().navigate(R.id.action_signInFragment_to_teacherHomeFragment)

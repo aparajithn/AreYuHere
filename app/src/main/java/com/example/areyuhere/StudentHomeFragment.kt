@@ -12,12 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
+
 
 private const val TAG = "StudentHome"
 
@@ -26,6 +27,11 @@ class StudentHomeFragment:Fragment() {
     private lateinit var check_in_button:Button
     private lateinit var code_edittext:EditText
     private lateinit var checkin_code:String
+    private lateinit var auth: FirebaseAuth
+    private lateinit var status:String
+    var flag = false
+    var i_d = ""
+    var realID = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +56,25 @@ class StudentHomeFragment:Fragment() {
                 // Failed to read value
             }
         })
+        viewModel.getStatus.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                Log.d(TAG,dataSnapshot.childrenCount.toString())
+                    for (snapshot in dataSnapshot.children) {
+                        i_d=snapshot.key.toString()
+                        for(s2 in snapshot.children){
+                            if(s2.value==viewModel.currentEmail){
+                                status = s2.value.toString()
+                                viewModel.id=i_d
+                            }
+
+                            status = s2.value.toString()
+                        }
+
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
 
 
         check_in_button.setOnClickListener{
@@ -58,8 +83,11 @@ class StudentHomeFragment:Fragment() {
 //            myRef.setValue("Hello, World2!")
 //            Log.d(TAG,"Check in clicked")
             //check if code is correct
+
             if(code_edittext.text.toString().equals(checkin_code)) {
-//                Log.d(TAG,"Navigating to student checkout")
+                Log.d(TAG,"Navigating to student checkout")
+                viewModel.setStatus.child(viewModel.id).child("status").setValue("T")
+
                 Navigation.createNavigateOnClickListener(R.id.action_studentHomeFragment_to_studentCheckOutFragment)
                 view.findNavController().navigate(R.id.action_studentHomeFragment_to_studentCheckOutFragment)
 

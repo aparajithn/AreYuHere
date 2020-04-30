@@ -32,7 +32,11 @@
     <fragment
         android:id="@+id/studentCheckOutFragment"
         android:name="com.example.areyuhere.StudentCheckOutFragment"
-        android:label="StudentCheckOutFragment" />
+        android:label="StudentCheckOutFragment" >
+        <action
+            android:id="@+id/action_studentCheckOutFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
     <fragment
         android:id="@+id/teacherCheckoutFragment"
         android:name="com.example.areyuhere.TeacherCheckoutFragment"

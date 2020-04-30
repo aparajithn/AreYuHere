@@ -11,4 +11,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="checkedin">Currently checked in!</string>
+    <string name="message">Checkout Everyone?</string>
+    <string name="refresh">Refresh</string>
 </resources>

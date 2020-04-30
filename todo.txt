@@ -1,0 +1,6 @@
+Sign up functionality 
+Send teach notification after student checkout 
+
+
+Improve UI 
+Sign out functionality (maybe just in the backstack)
