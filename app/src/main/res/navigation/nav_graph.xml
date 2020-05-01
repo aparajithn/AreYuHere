@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_signInFragment_to_teacherHomeFragment"
             app:destination="@id/teacherHomeFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentHomeFragment"
@@ -41,4 +44,12 @@
         android:id="@+id/teacherCheckoutFragment"
         android:name="com.example.areyuhere.TeacherCheckoutFragment"
         android:label="TeacherCheckoutFragment" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.areyuhere.SignUpFragment"
+        android:label="SignUpFragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
 </navigation>

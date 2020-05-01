@@ -1,6 +1,7 @@
-Sign up functionality 
-Send teach notification after student checkout 
+-Check time 
+-do error checking and handle exceptions
+-update landscape,Improve UI 
+-Sign out functionality (maybe just in the backstack) 
+-export user check in list to csv 
 
-
-Improve UI 
-Sign out functionality (maybe just in the backstack)
+ 

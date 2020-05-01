@@ -13,4 +13,8 @@
     <string name="checkedin">Currently checked in!</string>
     <string name="message">Checkout Everyone?</string>
     <string name="refresh">Refresh</string>
+    <string name="signupstring">Click here to sign up!</string>
+    <string name="name">Name</string>
+    <string name="signup">Sign Up</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 </resources>
