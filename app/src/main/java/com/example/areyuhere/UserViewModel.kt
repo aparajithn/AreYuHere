@@ -1,10 +1,13 @@
 package com.example.areyuhere
 
+import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.io.FileWriter
+import java.io.IOException
 
-
+private val CSV_HEADER = "id,name,status"
 private val charPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
 private const val TAG = "ViewModel"
 
@@ -22,12 +25,7 @@ class UserViewModel : ViewModel() {
     val setStatus = database.getReference("userlist")
     val userList = mutableListOf<User>()
 
-
-
-
-
-
-
+   
     fun newCode() {
         code = (1..8)
             .map { i -> kotlin.random.Random.nextInt(0, charPool.size) }
@@ -43,16 +41,38 @@ class UserViewModel : ViewModel() {
         }
     }
 
-
-//    fun getC(): String? {
-//        var value = ""
+//    fun export() {
+//        var fileWriter: FileWriter? = null
 //
+//        try {
+//            fileWriter = FileWriter("customer.csv")
 //
+//            fileWriter.append(CSV_HEADER)
+//            fileWriter.append('\n')
+//
+//            for (users in userList) {
+//                fileWriter.append(users.id)
+//                fileWriter.append(',')
+//                fileWriter.append(users.name)
+//                fileWriter.append(',')
+//                fileWriter.append(users.isCheckedin)
+//                fileWriter.append('\n')
+//            }
+//
+//            println("Write CSV successfully!")
+//        } catch (e: Exception) {
+//            println("Writing CSV error!")
+//            e.printStackTrace()
+//        } finally {
+//            try {
+//                fileWriter!!.flush()
+//                fileWriter.close()
+//            } catch (e: IOException) {
+//                println("Flushing/closing error!")
+//                e.printStackTrace()
+//            }
+//        }
 //    }
-
-
-
-
 }
 
 

@@ -78,20 +78,16 @@ class StudentHomeFragment:Fragment() {
 
 
         check_in_button.setOnClickListener{
-//            val database = Firebase.database
-//            val myRef = database.getReference("message")
-//            myRef.setValue("Hello, World2!")
-//            Log.d(TAG,"Check in clicked")
-            //check if code is correct
-
-            if(code_edittext.text.toString().equals(checkin_code)) {
+            if(code_edittext.text.toString().equals(checkin_code) && !code_edittext.text.toString().isNullOrEmpty()) {
                 Log.d(TAG,"Navigating to student checkout")
                 viewModel.setStatus.child(viewModel.id).child("status").setValue("T")
-
                 Navigation.createNavigateOnClickListener(R.id.action_studentHomeFragment_to_studentCheckOutFragment)
                 view.findNavController().navigate(R.id.action_studentHomeFragment_to_studentCheckOutFragment)
-
                 Toast.makeText(context, "Checked in!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            else{
+                Toast.makeText(context, "Check in failed!", Toast.LENGTH_SHORT)
                     .show()
             }
         }

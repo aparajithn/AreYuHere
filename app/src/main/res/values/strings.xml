@@ -6,7 +6,7 @@
     <string name="title">ARE YU HERE?</string>
     <string name="code">Enter Code:</string>
     <string name="checkin">Check In</string>
-    <string name = "generate_code">Generate Code</string>
+    <string name="generate_code">Generate Code</string>
     <string name="checkout">Check Out</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -16,5 +16,8 @@
     <string name="signupstring">Click here to sign up!</string>
     <string name="name">Name</string>
     <string name="signup">Sign Up</string>
-    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="code_expiry_time">Code will expire at: %s</string>
+    <string name="export">Click here to export today\'s attendance</string>
+    <string name="exportmessage">Do you wish to export today\'s attendance?</string>
+
 </resources>

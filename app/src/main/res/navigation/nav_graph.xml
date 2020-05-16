@@ -8,7 +8,8 @@
         android:label="SignInFragment" >
         <action
             android:id="@+id/action_signInFragment_to_studentHomeFragment"
-            app:destination="@id/studentHomeFragment" />
+            app:destination="@id/studentHomeFragment"
+            app:popUpTo="@id/signInFragment" />
         <action
             android:id="@+id/action_signInFragment_to_teacherHomeFragment"
             app:destination="@id/teacherHomeFragment" />
@@ -22,16 +23,13 @@
         android:label="StudentHomeFragment" >
         <action
             android:id="@+id/action_studentHomeFragment_to_studentCheckOutFragment"
-            app:destination="@id/studentCheckOutFragment" />
+            app:destination="@id/studentCheckOutFragment"
+            app:popUpTo="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/teacherHomeFragment"
         android:name="com.example.areyuhere.TeacherHomeFragment"
-        android:label="TeacherHomeFragment" >
-        <action
-            android:id="@+id/action_teacherHomeFragment_to_teacherCheckoutFragment"
-            app:destination="@id/teacherCheckoutFragment" />
-    </fragment>
+        android:label="TeacherHomeFragment" />
     <fragment
         android:id="@+id/studentCheckOutFragment"
         android:name="com.example.areyuhere.StudentCheckOutFragment"
@@ -40,10 +38,6 @@
             android:id="@+id/action_studentCheckOutFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/teacherCheckoutFragment"
-        android:name="com.example.areyuhere.TeacherCheckoutFragment"
-        android:label="TeacherCheckoutFragment" />
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.areyuhere.SignUpFragment"

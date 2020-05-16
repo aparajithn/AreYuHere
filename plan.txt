@@ -1,0 +1,20 @@
+-Fix firebase issue by setting rules
+-get richards android studio to work
+-Restructure DB to adjust for multiple teacher accounts 
+-firebase UID should be used to link firebase auth and firebase DB 
+-Update UI  to make teacher/student account 
+-Update signup/signin with socials 
+-Update teacher & student UI to allow creation of new classrooms and joining new classrooms 
+-Classrooms should be created with unique ID which will be shared to join a new classroom *also each classroom will be protected with a password set by the teacher*
+-teachers can also set meeting times and days and choose to have this reccur.
+-give teacher ability to set check in verification method
+-Working on each classroom UI and functionlaity 
+-push notifications 
+-Allow teacher to update display name, profile icon, check in status
+-History view for attendance sorted by day 
+-Profile of each user which they can alter display name, icon etc 
+-delete classroom *autodelete classroooms 
+- logout button / delete account 
+
+
+

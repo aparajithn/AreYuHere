@@ -11,6 +11,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 
@@ -44,8 +46,12 @@ class SignUpFragment:Fragment() {
             if(email_edittext.text.toString().isNullOrEmpty() || name_edittext.text.toString().isNullOrEmpty() || password_edittext.text.toString().isNullOrEmpty())
                 Toast.makeText(context, "Fill in all fields!",
                     Toast.LENGTH_SHORT).show()
-            else
+            else {
                 signup_auth()
+                Navigation.createNavigateOnClickListener(R.id.action_signUpFragment_to_signInFragment)
+                view.findNavController()
+                    .navigate(R.id.action_signUpFragment_to_signInFragment)
+            }
         }
         return view
     }
@@ -74,6 +80,7 @@ class SignUpFragment:Fragment() {
         userData["status"] = "F"
 
        viewModel.getStatus.child(index.toString()).updateChildren(userData)
+
     }
 
 }

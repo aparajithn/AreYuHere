@@ -1,9 +1,0 @@
-Your name:Aparajith Nagarajan
-Your partner's name: Richard Sevic 
-Grade you expect to receive for this assignment (0~100%): 100
-Your contribution to the assignment (0~100%): 50
-Your partner's contribution to the assignment (0~100%): 50
-
-Comments regarding your or your partner's contribution to the project (if any):
-
-Comments:This week we added Firebase to our app to add in real-time database functionalities. We now can generate a code on the teacher side, have it update real-time in our database, and students can check in using that code (and it verifies by checking what the student types against the code in the database). This is all done real time and over the internet.

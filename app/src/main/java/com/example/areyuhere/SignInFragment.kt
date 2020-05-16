@@ -85,32 +85,43 @@ class SignInFragment :Fragment(){
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
-        loginButton.setOnClickListener{
-            auth.signInWithEmailAndPassword(username.text.toString(), password.text.toString())
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
-                        val user = auth.currentUser
-                        viewModel.currentEmail=user?.email.toString()
-                        if(username.text.toString() == teacher_email){
-                            Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_teacherHomeFragment)
-                            view.findNavController().navigate(R.id.action_signInFragment_to_teacherHomeFragment)
-                        }
-                        else
-                        {
-                            Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_studentHomeFragment)
-                            view.findNavController().navigate(R.id.action_signInFragment_to_studentHomeFragment)
-                        }
+        loginButton.setOnClickListener {
+            if (!username.text.toString().isNullOrEmpty() && !password.text.toString()
+                    .isNullOrEmpty()){
+                    auth.signInWithEmailAndPassword(username.text.toString(), password.text.toString())
+                    .addOnCompleteListener(requireActivity()) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success")
+                            val user = auth.currentUser
+                            viewModel.currentEmail = user?.email.toString()
+                            if (username.text.toString() == teacher_email) {
+                                Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_teacherHomeFragment)
+                                view.findNavController()
+                                    .navigate(R.id.action_signInFragment_to_teacherHomeFragment)
+                            } else {
+                                Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_studentHomeFragment)
+                                view.findNavController()
+                                    .navigate(R.id.action_signInFragment_to_studentHomeFragment)
+                            }
 
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(context, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.exception)
+                            Toast.makeText(
+                                context, "Authentication failed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
 
+            }
+            else{
+                Toast.makeText(
+                    context, "Enter a username & password",
+                    Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
         signupTextView.setOnClickListener{
             Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_signUpFragment)
