@@ -60,7 +60,7 @@ class TeacherHomeFragment:Fragment() {
         export_data = view.findViewById(R.id.export_data)
         code_expiry= view.findViewById(R.id.code_expiry)
         code_expiry.visibility = View.GONE
-        val timer = object: CountDownTimer(7000, 1000) {
+        val timer = object: CountDownTimer(100000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 code_expiry.visibility = View.VISIBLE
                 code_expiry.text = "Your code will expire in ${millisUntilFinished/1000} seconds"

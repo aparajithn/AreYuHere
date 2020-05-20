@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -23,7 +24,9 @@ class SignUpFragment:Fragment() {
     private lateinit var name_edittext:EditText
     private lateinit var email_edittext:EditText
     private lateinit var password_edittext:EditText
+    private lateinit var displayName_edittext:EditText
     private lateinit var signup_button:Button
+    private lateinit var teacher_slider:Switch
     private lateinit var auth: FirebaseAuth
 
     val viewModel: UserViewModel by activityViewModels()
@@ -37,7 +40,9 @@ class SignUpFragment:Fragment() {
         name_edittext = view.findViewById(R.id.name_signup)
         email_edittext = view.findViewById(R.id.email_signup)
         password_edittext = view.findViewById(R.id.password_signup)
+        displayName_edittext = view.findViewById(R.id.displayname)
         signup_button = view.findViewById(R.id.signup_button)
+        teacher_slider = view.findViewById(R.id.teacher_slider)
         auth = FirebaseAuth.getInstance()
 
 
@@ -72,15 +77,21 @@ class SignUpFragment:Fragment() {
     }
     //Add user to realtime db
     fun signup_db(){
-        var index = viewModel.children_count + 1
+        var index = auth.currentUser?.uid
         val userData: MutableMap<String, Any> = HashMap()
 
         userData["email"] = email_edittext.text.toString()
         userData["name"] = name_edittext.text.toString()
-        userData["status"] = "F"
+        userData["preferred display name"] = displayName_edittext.text.toString()
 
-       viewModel.getStatus.child(index.toString()).updateChildren(userData)
-
+        if (teacher_slider.isChecked)
+        {
+            viewModel.teacherListRef.child(index.toString()).updateChildren(userData)
+        }
+        else
+        {
+            viewModel.getStatus.child(index.toString()).updateChildren(userData)
+        }
     }
 
 }

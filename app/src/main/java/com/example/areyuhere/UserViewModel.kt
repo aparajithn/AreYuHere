@@ -21,9 +21,12 @@ class UserViewModel : ViewModel() {
     val database = Firebase.database
     val code_ref = database.getReference("code")
     val isTeacher = database.getReference("teacher")
-    var getStatus = database.getReference().child("userlist")
-    val setStatus = database.getReference("userlist")
+    val teacherRef = database.getReference("teacherlist")
+    val teacherListRef = database.getReference().child("teacherlist")
+    val getStatus = database.getReference().child("studentlist")
+    val setStatus = database.getReference("studentlist")
     val userList = mutableListOf<User>()
+    val teacherList = mutableListOf<Teacher>()
 
    
     fun newCode() {

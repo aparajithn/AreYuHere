@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -31,8 +32,9 @@ class SignInFragment :Fragment(){
     private lateinit var auth: FirebaseAuth
     private lateinit var signupTextView:TextView
     var teacher_email = ""
+    var teacherEmails = mutableListOf<String>()
     private var counter = 0
-
+    var flagIsTeacher = false
 
     val viewModel: UserViewModel by activityViewModels()
 
@@ -47,22 +49,11 @@ class SignInFragment :Fragment(){
         password = view.findViewById(R.id.password)
         signupTextView = view.findViewById(R.id.signup_link)
         auth = FirebaseAuth.getInstance()
-        viewModel.isTeacher.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = dataSnapshot.getValue<String>()
-                 teacher_email = value.toString()
 
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-            }
-        })
         viewModel.getStatus.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 viewModel.children_count = dataSnapshot.childrenCount
+                Log.d(TAG, viewModel.children_count.toString())
                 if (viewModel.userList.isNullOrEmpty()){
                     for (snapshot in dataSnapshot.children) {
                         val user = User()
@@ -84,6 +75,23 @@ class SignInFragment :Fragment(){
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
+//Get teacher emails and put into a list
+        viewModel.teacherListRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    for (snapshot2 in snapshot.children)
+                    {
+                        if (snapshot2.key.toString() == "email") {
+                            teacher_email = snapshot2.value.toString()
+                            Log.d(TAG, teacher_email)
+                            teacherEmails.add(teacher_email)
+                        }
+                    }
+
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
 
         loginButton.setOnClickListener {
             if (!username.text.toString().isNullOrEmpty() && !password.text.toString()
@@ -95,15 +103,28 @@ class SignInFragment :Fragment(){
                             Log.d(TAG, "signInWithEmail:success")
                             val user = auth.currentUser
                             viewModel.currentEmail = user?.email.toString()
-                            if (username.text.toString() == teacher_email) {
+
+                            val teachersIterator = teacherEmails.iterator()
+                            flagIsTeacher = false
+                            while (teachersIterator.hasNext())
+                            {
+                                if (username.text.toString().equals(teachersIterator.next())) {
+                                    flagIsTeacher = true
+                                }
+                            }
+                            if (flagIsTeacher) {
                                 Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_teacherHomeFragment)
                                 view.findNavController()
                                     .navigate(R.id.action_signInFragment_to_teacherHomeFragment)
-                            } else {
+                            }
+                            else
+                            {
                                 Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_studentHomeFragment)
                                 view.findNavController()
                                     .navigate(R.id.action_signInFragment_to_studentHomeFragment)
                             }
+
+
 
                         } else {
                             // If sign in fails, display a message to the user.
