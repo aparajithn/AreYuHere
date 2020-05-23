@@ -59,31 +59,6 @@ class SignInFragment :Fragment() {
         auth = FirebaseAuth.getInstance()
 
 
-        viewModel.getStatus.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                viewModel.children_count = dataSnapshot.childrenCount
-                Log.d(TAG, viewModel.children_count.toString())
-                if (viewModel.userList.isNullOrEmpty()) {
-                    for (snapshot in dataSnapshot.children) {
-                        val user = User()
-                        user.id = snapshot.key.toString()
-                        counter = 0
-                        for (s2 in snapshot.children) {
-                            if (counter == 1) {
-                                user.name = s2.value.toString()
-                            }
-                            if (counter == 2) {
-                                user.isCheckedin = s2.value.toString()
-                            }
-                            counter++
-                        }
-                        viewModel.userList += user
-                    }
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
 //Get teacher emails and put into a list
         viewModel.teacherListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -151,8 +126,8 @@ class SignInFragment :Fragment() {
             }
         }
         signupTextView.setOnClickListener {
-            Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_signUpFragment)
-            view.findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+            Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_socialsSignUpFragment)
+            view.findNavController().navigate(R.id.action_signInFragment_to_socialsSignUpFragment)
         }
 
 

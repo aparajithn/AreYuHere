@@ -27,7 +27,6 @@ class UserViewModel : ViewModel() {
     val setStatus = database.getReference("studentlist")
     val userList = mutableListOf<User>()
     val teacherList = mutableListOf<Teacher>()
-
    
     fun newCode() {
         code = (1..8)

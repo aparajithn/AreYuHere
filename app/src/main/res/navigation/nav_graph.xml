@@ -12,10 +12,12 @@
             app:popUpTo="@id/signInFragment" />
         <action
             android:id="@+id/action_signInFragment_to_teacherHomeFragment"
-            app:destination="@id/teacherHomeFragment" />
+            app:destination="@id/teacherHomeFragment"
+            app:popUpTo="@id/signInFragment" />
         <action
-            android:id="@+id/action_signInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            android:id="@+id/action_signInFragment_to_socialsSignUpFragment"
+            app:destination="@id/socialsSignUpFragment"
+            app:popUpTo="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentHomeFragment"
@@ -45,5 +47,22 @@
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/socialsSignUpFragment"
+        android:name="com.example.areyuhere.SocialsSignUpFragment"
+        android:label="SocialsSignUpFragment" >
+        <action
+            android:id="@+id/action_socialsSignUpFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:popUpTo="@id/socialsSignUpFragment" />
+        <action
+            android:id="@+id/action_socialsSignUpFragment_to_teacherHomeFragment"
+            app:destination="@id/teacherHomeFragment"
+            app:popUpTo="@id/signInFragment" />
+        <action
+            android:id="@+id/action_socialsSignUpFragment_to_studentHomeFragment"
+            app:destination="@id/studentHomeFragment"
+            app:popUpTo="@id/signInFragment" />
     </fragment>
 </navigation>

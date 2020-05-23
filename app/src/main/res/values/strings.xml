@@ -21,5 +21,6 @@
     <string name="exportmessage">Do you wish to export today\'s attendance?</string>
     <string name="displayname">Display Name:</string>
     <string name="teacherslider">I am a teacher </string>
+    <string name="email">Email</string>
 
 </resources>
