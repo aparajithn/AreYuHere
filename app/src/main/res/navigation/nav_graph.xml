@@ -4,7 +4,7 @@
     app:startDestination="@id/signInFragment">
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.areyuhere.SignInFragment"
+        android:name="com.example.areyuhere.login.SignInFragment"
         android:label="SignInFragment" >
         <action
             android:id="@+id/action_signInFragment_to_studentHomeFragment"
@@ -21,20 +21,23 @@
     </fragment>
     <fragment
         android:id="@+id/studentHomeFragment"
-        android:name="com.example.areyuhere.StudentHomeFragment"
+        android:name="com.example.areyuhere.student.StudentHomeFragment"
         android:label="StudentHomeFragment" >
         <action
-            android:id="@+id/action_studentHomeFragment_to_studentCheckOutFragment"
-            app:destination="@id/studentCheckOutFragment"
-            app:popUpTo="@id/signInFragment" />
+            android:id="@+id/action_studentHomeFragment_to_studentClassFragment"
+            app:destination="@id/studentClassFragment" />
     </fragment>
     <fragment
         android:id="@+id/teacherHomeFragment"
-        android:name="com.example.areyuhere.TeacherHomeFragment"
-        android:label="TeacherHomeFragment" />
+        android:name="com.example.areyuhere.teacher.TeacherHomeFragment"
+        android:label="TeacherHomeFragment" >
+        <action
+            android:id="@+id/action_teacherHomeFragment_to_teacherClassFragment"
+            app:destination="@id/teacherClassFragment" />
+    </fragment>
     <fragment
         android:id="@+id/studentCheckOutFragment"
-        android:name="com.example.areyuhere.StudentCheckOutFragment"
+        android:name="com.example.areyuhere.student.StudentCheckOutFragment"
         android:label="StudentCheckOutFragment" >
         <action
             android:id="@+id/action_studentCheckOutFragment_to_signInFragment"
@@ -42,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.areyuhere.SignUpFragment"
+        android:name="com.example.areyuhere.login.SignUpFragment"
         android:label="SignUpFragment" >
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
@@ -50,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/socialsSignUpFragment"
-        android:name="com.example.areyuhere.SocialsSignUpFragment"
+        android:name="com.example.areyuhere.login.SocialsSignUpFragment"
         android:label="SocialsSignUpFragment" >
         <action
             android:id="@+id/action_socialsSignUpFragment_to_signUpFragment"
@@ -64,5 +67,17 @@
             android:id="@+id/action_socialsSignUpFragment_to_studentHomeFragment"
             app:destination="@id/studentHomeFragment"
             app:popUpTo="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherClassFragment"
+        android:name="com.example.areyuhere.teacher.TeacherClassFragment"
+        android:label="TeacherClassFragment" />
+    <fragment
+        android:id="@+id/studentClassFragment"
+        android:name="com.example.areyuhere.student.StudentClassFragment"
+        android:label="StudentClassFragment" >
+        <action
+            android:id="@+id/action_studentClassFragment_to_studentCheckOutFragment"
+            app:destination="@id/studentCheckOutFragment" />
     </fragment>
 </navigation>

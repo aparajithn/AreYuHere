@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/title"
+        android:text="@string/signuptitle"
         android:textColor="#000000"
         android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"

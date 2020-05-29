@@ -1,31 +1,21 @@
-package com.example.areyuhere
+package com.example.areyuhere.login
 
-import android.R.attr.name
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Switch
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
-import com.google.android.gms.common.api.ApiException
+import com.example.areyuhere.R
+import com.example.areyuhere.UserViewModel
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.ktx.Firebase
 
-
-private const val TAG = "SignupFragment"
 
 class SignUpFragment:Fragment() {
     private lateinit var name_edittext:EditText
@@ -33,7 +23,7 @@ class SignUpFragment:Fragment() {
     private lateinit var password_edittext:EditText
     private lateinit var displayName_edittext:EditText
     private lateinit var signup_button:Button
-    private lateinit var teacher_slider:Switch
+    private lateinit var teacher_slider:SwitchMaterial
     private lateinit var auth: FirebaseAuth
 
 

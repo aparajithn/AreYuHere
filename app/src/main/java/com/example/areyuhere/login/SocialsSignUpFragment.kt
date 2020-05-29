@@ -1,4 +1,4 @@
-package com.example.areyuhere
+package com.example.areyuhere.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.example.areyuhere.R
+import com.example.areyuhere.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -23,10 +25,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_signup_socials.*
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.awaitAll
 
-private const val TAG = "SignupFragmentSocials"
 
 class SocialsSignUpFragment: Fragment() {
     private lateinit var googleSignIn: SignInButton
@@ -191,7 +190,9 @@ class SocialsSignUpFragment: Fragment() {
 
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(signInIntent,
+            RC_SIGN_IN
+        )
     }
     companion object {
         private const val TAG = "GoogleActivity"

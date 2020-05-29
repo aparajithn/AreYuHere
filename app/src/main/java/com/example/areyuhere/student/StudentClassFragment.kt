@@ -1,4 +1,4 @@
-package com.example.areyuhere
+package com.example.areyuhere.student
 
 import android.os.Bundle
 import android.util.Log
@@ -12,17 +12,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.example.areyuhere.R
+import com.example.areyuhere.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 
 
 private const val TAG = "StudentHome"
 
-class StudentHomeFragment:Fragment() {
+class StudentClassFragment:Fragment() {
     val viewModel: UserViewModel by activityViewModels()
     private lateinit var check_in_button:Button
     private lateinit var code_edittext:EditText
@@ -38,7 +39,7 @@ class StudentHomeFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_studenthome, container, false)
+        val view = inflater.inflate(R.layout.fragment_studentclass, container, false)
 
         check_in_button = view.findViewById(R.id.checkin_button)
         code_edittext = view.findViewById(R.id.code)
@@ -81,8 +82,8 @@ class StudentHomeFragment:Fragment() {
             if(code_edittext.text.toString().equals(checkin_code) && !code_edittext.text.toString().isNullOrEmpty()) {
                 Log.d(TAG,"Navigating to student checkout")
                 viewModel.setStatus.child(viewModel.id).child("status").setValue("T")
-                Navigation.createNavigateOnClickListener(R.id.action_studentHomeFragment_to_studentCheckOutFragment)
-                view.findNavController().navigate(R.id.action_studentHomeFragment_to_studentCheckOutFragment)
+                Navigation.createNavigateOnClickListener(R.id.action_studentClassFragment_to_studentCheckOutFragment)
+                view.findNavController().navigate(R.id.action_studentClassFragment_to_studentCheckOutFragment)
                 Toast.makeText(context, "Checked in!", Toast.LENGTH_SHORT)
                     .show()
             }
