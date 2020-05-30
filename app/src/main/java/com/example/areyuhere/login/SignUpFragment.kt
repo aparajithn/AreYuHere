@@ -94,7 +94,7 @@ class SignUpFragment:Fragment() {
         }
         else
         {
-            viewModel.getStatus.child(index.toString()).updateChildren(userData)
+            viewModel.studentListRef.child(index.toString()).updateChildren(userData)
         }
     }
 }

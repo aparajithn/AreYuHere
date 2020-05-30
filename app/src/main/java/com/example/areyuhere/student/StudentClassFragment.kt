@@ -57,7 +57,7 @@ class StudentClassFragment:Fragment() {
                 // Failed to read value
             }
         })
-        viewModel.getStatus.addValueEventListener(object : ValueEventListener {
+        viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.d(TAG,dataSnapshot.childrenCount.toString())
                     for (snapshot in dataSnapshot.children) {
@@ -81,7 +81,7 @@ class StudentClassFragment:Fragment() {
         check_in_button.setOnClickListener{
             if(code_edittext.text.toString().equals(checkin_code) && !code_edittext.text.toString().isNullOrEmpty()) {
                 Log.d(TAG,"Navigating to student checkout")
-                viewModel.setStatus.child(viewModel.id).child("status").setValue("T")
+                viewModel.studentRef.child(viewModel.id).child("status").setValue("T")
                 Navigation.createNavigateOnClickListener(R.id.action_studentClassFragment_to_studentCheckOutFragment)
                 view.findNavController().navigate(R.id.action_studentClassFragment_to_studentCheckOutFragment)
                 Toast.makeText(context, "Checked in!", Toast.LENGTH_SHORT)

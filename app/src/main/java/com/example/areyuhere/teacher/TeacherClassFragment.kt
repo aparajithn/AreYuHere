@@ -64,7 +64,7 @@ class TeacherClassFragment:Fragment() {
                 code_expiry.text = "Your code has expired"
             }
         }
-        viewModel.getStatus.addValueEventListener(object : ValueEventListener {
+        viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 viewModel.userList.clear()
                 viewModel.children_count = dataSnapshot.childrenCount
@@ -186,11 +186,11 @@ class TeacherClassFragment:Fragment() {
                     viewModel.userList.forEach {
                     if(it.name == input){
                         if(it.isCheckedin=="F"){
-                            viewModel.setStatus.child(it.id).child("status").setValue("T")
+                            viewModel.studentRef.child(it.id).child("status").setValue("T")
                             flag = 1
                         }
                         else {
-                            viewModel.setStatus.child(it.id).child("status").setValue("F")
+                            viewModel.studentRef.child(it.id).child("status").setValue("F")
                             flag = 0
                         }
                     }

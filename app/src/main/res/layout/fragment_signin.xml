@@ -11,11 +11,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="@string/signin"
-        android:textSize="50dp"
         android:textColor="@color/defaultTextColor"
+        android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,17 +24,17 @@
         android:id="@+id/username_textfield"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        app:startIconDrawable="@drawable/outline_mail_24"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        app:errorEnabled="true"
+        android:layout_marginTop="50dp"
+        android:elevation="20dp"
+        android:hint="@string/username"
         app:boxStrokeWidth="1dp"
         app:boxStrokeWidthFocused="2dp"
-        android:hint="@string/username"
-        android:elevation="20dp"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:startIconDrawable="@drawable/outline_mail_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/username"
@@ -47,29 +48,30 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
+        android:elevation="20dp"
+        android:hint="@string/password"
         app:boxStrokeWidth="1dp"
         app:boxStrokeWidthFocused="2dp"
-        android:elevation="20dp"
-        app:startIconDrawable="@drawable/outline_password_24"
-        android:hint="@string/password"
-        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_textfield">
+        app:layout_constraintTop_toBottomOf="@+id/username_textfield"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/outline_password_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:inputType="textPassword"
             android:id="@+id/password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.google.android.material.textfield.TextInputEditText>
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"></com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -80,17 +82,27 @@
         android:id="@+id/signup_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:clickable="true"
         android:onClick="onClick"
         android:text="@string/signupstring"
+        android:textColor="@color/defaultTextColor"
         android:textSize="15dp"
         android:textStyle="bold"
-        android:textColor="@color/defaultTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button"></TextView>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="208dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

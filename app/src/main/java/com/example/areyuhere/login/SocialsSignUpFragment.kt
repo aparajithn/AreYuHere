@@ -68,7 +68,7 @@ class SocialsSignUpFragment: Fragment() {
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
-        viewModel.getStatus.addValueEventListener(object : ValueEventListener {
+        viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     uidListS.add(snapshot.key.toString())
@@ -181,7 +181,7 @@ class SocialsSignUpFragment: Fragment() {
         }
         else
         {
-            viewModel.getStatus.child(index).updateChildren(userData)
+            viewModel.studentListRef.child(index).updateChildren(userData)
             Navigation.createNavigateOnClickListener(R.id.action_socialsSignUpFragment_to_studentHomeFragment, null)
             view?.findNavController()?.navigate(R.id.action_socialsSignUpFragment_to_studentHomeFragment)
         }

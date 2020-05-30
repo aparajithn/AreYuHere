@@ -24,7 +24,7 @@ class StudentCheckOutFragment : Fragment(){
         val view = inflater.inflate(R.layout.fragment_studentcheckout, container, false)
         checkout_button = view.findViewById(R.id.checkout_button)
         checkout_button.setOnClickListener{
-            viewModel.setStatus.child(viewModel.id).child("status").setValue("F")
+            viewModel.studentRef.child(viewModel.id).child("status").setValue("F")
             Navigation.createNavigateOnClickListener(R.id.action_studentCheckOutFragment_to_signInFragment)
             view.findNavController().navigate(R.id.action_studentCheckOutFragment_to_signInFragment)
         }
