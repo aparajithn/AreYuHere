@@ -1,4 +1,4 @@
-package com.example.areyuhere
+package com.example.areyuhere.student
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.example.areyuhere.R
+import com.example.areyuhere.UserViewModel
 
 class StudentCheckOutFragment : Fragment(){
     val viewModel: UserViewModel by activityViewModels()
@@ -22,7 +24,7 @@ class StudentCheckOutFragment : Fragment(){
         val view = inflater.inflate(R.layout.fragment_studentcheckout, container, false)
         checkout_button = view.findViewById(R.id.checkout_button)
         checkout_button.setOnClickListener{
-            viewModel.setStatus.child(viewModel.id).child("status").setValue("F")
+            viewModel.studentRef.child(viewModel.id).child("status").setValue("F")
             Navigation.createNavigateOnClickListener(R.id.action_studentCheckOutFragment_to_signInFragment)
             view.findNavController().navigate(R.id.action_studentCheckOutFragment_to_signInFragment)
         }

@@ -1,9 +1,6 @@
-package com.example.areyuhere
+package com.example.areyuhere.teacher
 
-import android.app.Activity
-import android.content.Context
 import android.content.DialogInterface
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -15,33 +12,29 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.tasks.OnCompleteListener
+import com.example.areyuhere.R
+import com.example.areyuhere.User
+import com.example.areyuhere.UserViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.iid.FirebaseInstanceId
-import java.io.FileWriter
-import java.io.IOException
-import java.util.jar.Manifest
 
 private const val TAG = "TeacherHome"
 private val CSV_HEADER = "id,name,status"
 
-class TeacherHomeFragment:Fragment() {
+class TeacherClassFragment:Fragment() {
     val viewModel: UserViewModel by activityViewModels()
     private lateinit var code_generate_button:Button
     private lateinit var code_display: TextView
     private lateinit var userListRecyclerView:RecyclerView
     private lateinit var code_expiry:TextView
     private lateinit var export_data:TextView
-    private var adapter:UserAdapter?=null
+    private var adapter: UserAdapter?=null
     private var code =""
     private var counter = 0
     private var flag = 0
@@ -52,7 +45,7 @@ class TeacherHomeFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_teacherhome, container, false)
+        val view = inflater.inflate(R.layout.fragment_teacherclass, container, false)
         userListRecyclerView = view.findViewById(R.id.studentList) as RecyclerView
         userListRecyclerView.layoutManager = LinearLayoutManager(context)
         code_generate_button = view.findViewById(R.id.code_generate)
@@ -60,7 +53,7 @@ class TeacherHomeFragment:Fragment() {
         export_data = view.findViewById(R.id.export_data)
         code_expiry= view.findViewById(R.id.code_expiry)
         code_expiry.visibility = View.GONE
-        val timer = object: CountDownTimer(7000, 1000) {
+        val timer = object: CountDownTimer(100000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 code_expiry.visibility = View.VISIBLE
                 code_expiry.text = "Your code will expire in ${millisUntilFinished/1000} seconds"
@@ -71,7 +64,7 @@ class TeacherHomeFragment:Fragment() {
                 code_expiry.text = "Your code has expired"
             }
         }
-        viewModel.getStatus.addValueEventListener(object : ValueEventListener {
+        viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 viewModel.userList.clear()
                 viewModel.children_count = dataSnapshot.childrenCount
@@ -154,7 +147,7 @@ class TeacherHomeFragment:Fragment() {
     }
     private inner class UserHolder(view:View)
         :RecyclerView.ViewHolder(view),View.OnClickListener{
-        private lateinit var user:User
+        private lateinit var user: User
         private val nameTextView:TextView = itemView.findViewById(R.id.student_name)
         private val isCheckedIn: ImageView = itemView.findViewById(R.id.isCheckedIn)
         private val isNotCheckedIn: ImageView = itemView.findViewById(R.id.isNotCheckedIn)
@@ -164,7 +157,7 @@ class TeacherHomeFragment:Fragment() {
             nameTextView.setOnClickListener(this)
         }
 
-        fun bind(user:User){
+        fun bind(user: User){
             this.user = user
             nameTextView.text = this.user.name
             isCheckedIn.visibility = if(user.isCheckedin == "T"){
@@ -193,11 +186,11 @@ class TeacherHomeFragment:Fragment() {
                     viewModel.userList.forEach {
                     if(it.name == input){
                         if(it.isCheckedin=="F"){
-                            viewModel.setStatus.child(it.id).child("status").setValue("T")
+                            viewModel.studentRef.child(it.id).child("status").setValue("T")
                             flag = 1
                         }
                         else {
-                            viewModel.setStatus.child(it.id).child("status").setValue("F")
+                            viewModel.studentRef.child(it.id).child("status").setValue("F")
                             flag = 0
                         }
                     }

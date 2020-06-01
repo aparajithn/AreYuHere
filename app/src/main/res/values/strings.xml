@@ -3,7 +3,8 @@
     <string name="username">Email:</string>
     <string name="password">Password:</string>
     <string name="login">Log In</string>
-    <string name="title">ARE YU HERE?</string>
+    <string name="signin">Sign In</string>
+    <string name="signuptitle">Create Account</string>
     <string name="code">Enter Code:</string>
     <string name="checkin">Check In</string>
     <string name="generate_code">Generate Code</string>
@@ -13,11 +14,14 @@
     <string name="checkedin">Currently checked in!</string>
     <string name="message">Checkout Everyone?</string>
     <string name="refresh">Refresh</string>
-    <string name="signupstring">Click here to sign up!</string>
-    <string name="name">Name</string>
+    <string name="signupstring"><u>New? Click Here !</u></string>
+    <string name="name">Full Name:</string>
     <string name="signup">Sign Up</string>
     <string name="code_expiry_time">Code will expire at: %s</string>
     <string name="export">Click here to export today\'s attendance</string>
     <string name="exportmessage">Do you wish to export today\'s attendance?</string>
+    <string name="displayname">Display Name:</string>
+    <string name="teacherslider">I am a teacher </string>
+    <string name="email">Email</string>
 
 </resources>
