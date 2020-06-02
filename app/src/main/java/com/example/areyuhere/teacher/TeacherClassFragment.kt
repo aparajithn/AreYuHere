@@ -60,7 +60,7 @@ class TeacherClassFragment:Fragment() {
             }
 
             override fun onFinish() {
-                viewModel.code_ref.setValue("")
+                viewModel.codeRef.setValue("")
                 code_expiry.text = "Your code has expired"
             }
         }
@@ -92,7 +92,7 @@ class TeacherClassFragment:Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
-        viewModel.code_ref.addValueEventListener(object : ValueEventListener {
+        viewModel.codeRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.

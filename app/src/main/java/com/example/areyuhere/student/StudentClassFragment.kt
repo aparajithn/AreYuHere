@@ -44,18 +44,13 @@ class StudentClassFragment:Fragment() {
         check_in_button = view.findViewById(R.id.checkin_button)
         code_edittext = view.findViewById(R.id.code)
         //Read code in database
-        viewModel.code_ref.addValueEventListener(object : ValueEventListener {
+        viewModel.codeRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 val value = dataSnapshot.getValue<String>()
                 checkin_code = value.toString()
-
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
         viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
