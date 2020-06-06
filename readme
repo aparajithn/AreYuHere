@@ -1,0 +1,16 @@
+Developed in Kotlin with Google Firebase Services. It uses Google Realtime DB for data storage regarding teachers and students as well 
+as a host of other Firebase services like Firebase Authentication Firebase Cloud Messaging and more. The application is developed in Android
+Studio. It supports landscape views and handles the android lifecycle. Some screenshots for some of the pages already developed and 
+functioning are 
+
+Sign Up page
+![image](https://user-images.githubusercontent.com/56369101/83934782-52cce180-a781-11ea-8846-29e12ccf2d05.png)
+
+Sign in Page 
+![image](https://user-images.githubusercontent.com/56369101/83934805-6d06bf80-a781-11ea-806a-62171d5a8f29.png)
+
+Socials Page 
+![image](https://user-images.githubusercontent.com/56369101/83934848-945d8c80-a781-11ea-94ab-387e2d9ce18e.png)
+
+TeachHome Page 
+![image](https://user-images.githubusercontent.com/56369101/83934859-a4756c00-a781-11ea-9260-9d3447c09f8e.png)
