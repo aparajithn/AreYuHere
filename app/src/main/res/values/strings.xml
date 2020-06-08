@@ -25,5 +25,6 @@
     <string name="email">Email</string>
     <string name="fab_content_desc">Click to add a new classroom</string>
     <string name="classroom_new">Classroom Name:</string>
+    <string name="expiry_text">Your code has expired</string>
 
 </resources>

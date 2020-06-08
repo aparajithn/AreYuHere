@@ -24,18 +24,16 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 
-private const val TAG = "TeacherHome"
-private val CSV_HEADER = "id,name,status"
+private const val TAG = "TeacherClass"
 
 class TeacherClassFragment:Fragment() {
     val viewModel: UserViewModel by activityViewModels()
-    private lateinit var code_generate_button:Button
-    private lateinit var code_display: TextView
+    private lateinit var codeGenerateButton:Button
+    private lateinit var codeDisplay:TextView
     private lateinit var userListRecyclerView:RecyclerView
-    private lateinit var code_expiry:TextView
-    private lateinit var export_data:TextView
+    private lateinit var codeExpiry:TextView
+    private lateinit var classTitle:TextView
     private var adapter: UserAdapter?=null
-    private var code =""
     private var counter = 0
     private var flag = 0
 
@@ -48,22 +46,26 @@ class TeacherClassFragment:Fragment() {
         val view = inflater.inflate(R.layout.fragment_teacherclass, container, false)
         userListRecyclerView = view.findViewById(R.id.studentList) as RecyclerView
         userListRecyclerView.layoutManager = LinearLayoutManager(context)
-        code_generate_button = view.findViewById(R.id.code_generate)
-        code_display = view.findViewById(R.id.code_display)
-        export_data = view.findViewById(R.id.export_data)
-        code_expiry= view.findViewById(R.id.code_expiry)
-        code_expiry.visibility = View.GONE
+        codeGenerateButton = view.findViewById(R.id.code_generate)
+        codeDisplay = view.findViewById(R.id.code_display)
+        codeExpiry= view.findViewById(R.id.code_expiry)
+        codeExpiry.visibility = View.GONE
+
+        classTitle = view.findViewById(R.id.class_Title)
+        classTitle.text = viewModel.currentClass
+
         val timer = object: CountDownTimer(100000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                code_expiry.visibility = View.VISIBLE
-                code_expiry.text = "Your code will expire in ${millisUntilFinished/1000} seconds"
+                codeExpiry.visibility = View.VISIBLE
+                codeExpiry.text = "Your code will expire in ${millisUntilFinished/1000} seconds"
             }
 
             override fun onFinish() {
                 viewModel.codeRef.setValue("")
-                code_expiry.text = "Your code has expired"
+                codeExpiry.text = R.string.expiry_text.toString()
             }
         }
+
         viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 viewModel.userList.clear()
@@ -97,7 +99,7 @@ class TeacherClassFragment:Fragment() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 val value = dataSnapshot.getValue<String>()
-                code_display.text = value
+                codeDisplay.text = value
 
             }
 
@@ -107,7 +109,7 @@ class TeacherClassFragment:Fragment() {
         })
 
 
-        code_generate_button.setOnClickListener{
+        codeGenerateButton.setOnClickListener{
             val dialogBuilder = context?.let { it1 -> AlertDialog.Builder(it1) }
 
             // set message of alert dialog
@@ -132,9 +134,6 @@ class TeacherClassFragment:Fragment() {
             alert?.show()
             viewModel.newCode()
             timer.start()
-        }
-        export_data.setOnClickListener{
-            export()
         }
         updateUI()
         return view
@@ -237,60 +236,4 @@ class TeacherClassFragment:Fragment() {
 
     }
 
-       private fun export() {
-//
-//           if (context?.let { ContextCompat.checkSelfPermission(it, "WRITE_EXTERNAL_STORAGE") }
-//               != PackageManager.PERMISSION_GRANTED) {
-//               if (ActivityCompat.shouldShowRequestPermissionRationale(
-//                       context as Activity,
-//                       "WRITE_EXTERNAL_STORAGE")) {
-//                   // Show an explanation to the user *asynchronously* -- don't block
-//                   // this thread waiting for the user's response! After the user
-//                   // sees the explanation, try again to request the permission.
-//               } else {
-//                   // No explanation needed, we can request the permission.
-//                   ActivityCompat.requestPermissions(context as Activity,
-//                       arrayOf("WRITE_EXTERNAL_STORAGE") ,0)
-//
-//
-//                   // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                   // app-defined int constant. The callback method gets the
-//                   // result of the request.
-//               }
-//           } else {
-//               // Permission has already been granted
-//           }
-//
-//        var fileWriter: FileWriter? = null
-//
-//        try {
-//            fileWriter = FileWriter("customer.csv")
-//
-//            fileWriter.append(CSV_HEADER)
-//            fileWriter.append('\n')
-//
-//            for (users in viewModel.userList) {
-//                fileWriter.append(users.id)
-//                fileWriter.append(',')
-//                fileWriter.append(users.name)
-//                fileWriter.append(',')
-//                fileWriter.append(users.isCheckedin)
-//                fileWriter.append('\n')
-//            }
-//
-//            Log.d(TAG,"Write CSV successfully!")
-//        } catch (e: Exception) {
-//            Log.d(TAG,"Writing CSV error!")
-//            e.printStackTrace()
-//        } finally {
-//            try {
-//                fileWriter!!.flush()
-//                fileWriter.close()
-//            } catch (e: IOException) {
-//                Log.d(TAG,"Flushing/closing error!")
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-
-}}
+}

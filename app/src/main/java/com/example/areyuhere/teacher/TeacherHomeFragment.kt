@@ -45,6 +45,7 @@ class TeacherHomeFragment: Fragment() {
         teacherClassList.layoutManager = GridLayoutManager(context,2,LinearLayoutManager.VERTICAL,false)
         teacherClassList.setHasFixedSize(true)
         auth = FirebaseAuth.getInstance()
+
         viewModel.classListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 viewModel.classList.clear()
@@ -131,7 +132,9 @@ class TeacherHomeFragment: Fragment() {
         //RECYCLER ITEM KEY PRESS
         override fun onClick(v: View?) {
            Toast.makeText(context,"You pressed me",Toast.LENGTH_SHORT).show()
-
+            viewModel.currentClass = this.c1.name
+            Navigation.createNavigateOnClickListener(R.id.action_teacherHomeFragment_to_teacherClassFragment)
+            view?.findNavController()?.navigate(R.id.action_teacherHomeFragment_to_teacherClassFragment)
         }
     }
     private inner class ClassAdapter(var classes:List<Class>)

@@ -10,6 +10,7 @@ private val charPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
 class UserViewModel : ViewModel() {
     var code = "test"
     var id = ""
+    var currentClass = ""
     lateinit var currentEmail:String
     var childrenCount:Long = 0
     val userList = mutableListOf<User>()

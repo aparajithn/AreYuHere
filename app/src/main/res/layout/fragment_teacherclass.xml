@@ -1,69 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/code_expiry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="40dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="sample text"
         android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/code_display"
+        android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></TextView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/class_Title" />
 
     <Button
         android:id="@+id/code_generate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
 
+        android:layout_marginTop="20dp"
         android:text="@string/generate_code"
-        app:layout_constraintBottom_toTopOf="@+id/export_data"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/export_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:clickable="true"
-        android:onClick="onClick"
-        android:text="@string/export"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/studentList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></TextView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/code_display" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/studentList"
-        android:layout_width="402dp"
-        android:layout_height="425dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="400dp"
+        android:layout_height="420dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/code_generate" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/code_display"
-        android:layout_width="134dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="20dp"
-        android:textColor="#000000"
-        android:text="TextView"
-        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical|center_horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/code_generate"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/code_expiry" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/class_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="ClassTitle"
+        android:textColor="#000000"
+        android:textSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

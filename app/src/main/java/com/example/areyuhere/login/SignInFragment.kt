@@ -95,12 +95,10 @@ class SignInFragment :Fragment() {
                             //navigate to appropriate home page depending on whether the user is a student or teacher
                             if (flagIsTeacher) {
                                 Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_teacherHomeFragment)
-                                view.findNavController()
-                                    .navigate(R.id.action_signInFragment_to_teacherHomeFragment)
+                                view.findNavController().navigate(R.id.action_signInFragment_to_teacherHomeFragment)
                             } else {
                                 Navigation.createNavigateOnClickListener(R.id.action_signInFragment_to_studentHomeFragment)
-                                view.findNavController()
-                                    .navigate(R.id.action_signInFragment_to_studentHomeFragment)
+                                view.findNavController().navigate(R.id.action_signInFragment_to_studentHomeFragment)
                             }
 
                         } else {
