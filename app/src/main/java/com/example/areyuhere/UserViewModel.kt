@@ -23,7 +23,8 @@ class UserViewModel : ViewModel() {
     val classListRef = database.getReference().child("classlist")
     val classRef = database.getReference("classlist")
     val userList = mutableListOf<User>()
-   
+    val classList = mutableListOf<Class>()
+
     fun newCode() {
         code = (1..8)
             .map { i -> kotlin.random.Random.nextInt(0, charPool.size) }
