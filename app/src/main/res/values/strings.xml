@@ -14,7 +14,7 @@
     <string name="checkedin">Currently checked in!</string>
     <string name="message">Checkout Everyone?</string>
     <string name="refresh">Refresh</string>
-    <string name="signupstring"><u>New? Click Here !</u></string>
+    <string name="signupstring"><u>New? Click Here!</u></string>
     <string name="name">Full Name:</string>
     <string name="signup">Sign Up</string>
     <string name="code_expiry_time">Code will expire at: %s</string>

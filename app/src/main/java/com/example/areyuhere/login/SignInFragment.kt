@@ -88,7 +88,7 @@ class SignInFragment :Fragment() {
                             flagIsTeacher = false
                             //mark flag as true if user trying to log in is a teacher
                             while (teachersIterator.hasNext()) {
-                                if (username.text.toString().equals(teachersIterator.next())) {
+                                if (username.text.toString() == teachersIterator.next()) {
                                     flagIsTeacher = true
                                 }
                             }

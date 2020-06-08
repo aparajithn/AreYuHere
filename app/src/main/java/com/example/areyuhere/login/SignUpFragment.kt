@@ -37,7 +37,7 @@ class SignUpFragment:Fragment() {
         fullNameEditText = view.findViewById(R.id.name_signup)
         emailEditText = view.findViewById(R.id.email_signup)
         passwordEditText = view.findViewById(R.id.password_signup)
-        displayNameEditText = view.findViewById(R.id.displayname)
+        displayNameEditText = view.findViewById(R.id.displayname_signup)
         signupButton = view.findViewById(R.id.signup_button)
         teacherSwitch = view.findViewById(R.id.teacher_slider)
 
@@ -62,11 +62,15 @@ class SignUpFragment:Fragment() {
             }
         }
 
-
-            return view
+        return view
     }
 
-    //Add new user to firebase auth
+    /*
+    * purpose: add new user to firebase auth
+    * inputs: email and password
+    * outputs: Firebase Auth will have new user with input's credentials, a toast will display
+    * TODO:
+    */
     fun signupAuth(){
         auth.createUserWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString())
             .addOnCompleteListener { task ->
@@ -83,7 +87,13 @@ class SignUpFragment:Fragment() {
             }
     }
 
-    //Add user to realtime db
+    /*
+    * purpose: add new user to realtime db
+    * inputs: email, preferred display name, name
+    * outputs: Firebase realtime db will have new user in either studentlist or teacherlist with
+    * matching credentials to the firebase auth for that user
+    * TODO:
+    */
     fun signupDb(){
         var index = auth.currentUser?.uid
         val userData: MutableMap<String, Any> = HashMap()

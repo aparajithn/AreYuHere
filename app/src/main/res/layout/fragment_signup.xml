@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/signinLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/signup_TitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -16,14 +15,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/defaultTextColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fullname_textfield"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
         android:hint="@string/name"
         app:boxStrokeWidth="1dp"
         app:boxStrokeWidthFocused="2dp"
@@ -36,16 +35,16 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_signup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.google.android.material.textfield.TextInputEditText>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/name_textfield"
+        android:id="@+id/displayname_textfield"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
         android:hint="@string/displayname"
         app:boxStrokeWidth="1dp"
         app:boxStrokeWidthFocused="2dp"
@@ -56,9 +55,9 @@
         app:startIconDrawable="@drawable/contact_name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/displayname"
+            android:id="@+id/displayname_signup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.google.android.material.textfield.TextInputEditText>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,8 +65,8 @@
         android:id="@+id/username_textfield"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
         android:elevation="20dp"
         android:hint="@string/username"
         app:boxStrokeWidth="1dp"
@@ -75,13 +74,13 @@
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_textfield"
+        app:layout_constraintTop_toBottomOf="@+id/displayname_textfield"
         app:startIconDrawable="@drawable/outline_mail_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_signup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.google.android.material.textfield.TextInputEditText>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,8 +88,8 @@
         android:id="@+id/password_textField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
         android:elevation="20dp"
         android:hint="@string/password"
         app:boxStrokeWidth="1dp"
@@ -105,31 +104,31 @@
             android:id="@+id/password_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"></com.google.android.material.textfield.TextInputEditText>
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="60dp"
         android:text="@string/signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_textField"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/password_textField" />
 
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/teacher_slider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="60dp"
         android:text="@string/teacherslider"
-        android:textStyle="bold"
         android:textColor="@color/defaultTextColor"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView1" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_TitleText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

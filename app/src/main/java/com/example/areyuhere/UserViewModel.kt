@@ -11,17 +11,17 @@ class UserViewModel : ViewModel() {
     var code = "test"
     var id = ""
     lateinit var currentEmail:String
-    var children_count:Long = 0
+    var childrenCount:Long = 0
     val userList = mutableListOf<User>()
 
     //database instance for firebase and references to particular nodes within the db
     val database = Firebase.database
     val codeRef = database.getReference("code")
-    val teacherListRef = database.getReference().child("teacherlist")
+    val teacherListRef = database.reference.child("teacherlist")
     val studentRef = database.getReference("studentlist")
-    val studentListRef = database.getReference().child("studentlist")
+    val studentListRef = database.reference.child("studentlist")
     val classRef = database.getReference("classlist")
-    val classListRef = database.getReference().child("classlist")
+    val classListRef = database.reference.child("classlist")
 
     /*
     * purpose: generates a new 8 character alphanumeric code to be used for checking a student into class
@@ -48,7 +48,7 @@ class UserViewModel : ViewModel() {
     *  for this class
     */
     fun resetStatus(){
-        for(count in 1 until children_count+1){
+        for(count in 1 until childrenCount+1){
             studentRef.child(count.toString()).child("status").setValue("F")
         }
     }

@@ -67,7 +67,7 @@ class TeacherClassFragment:Fragment() {
         viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 viewModel.userList.clear()
-                viewModel.children_count = dataSnapshot.childrenCount
+                viewModel.childrenCount = dataSnapshot.childrenCount
                 if(viewModel.userList.isNullOrEmpty()) {
                     for (snapshot in dataSnapshot.children) {
                         val user = User()
