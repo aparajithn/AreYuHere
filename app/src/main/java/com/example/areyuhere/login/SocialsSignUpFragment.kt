@@ -32,8 +32,8 @@ class SocialsSignUpFragment: Fragment() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     private lateinit var emailButton: Button
-    var SignInFailed = false
-    var alreadyExists = false
+    var signInFailed = false
+    private var alreadyExists = false
     val uidListT = mutableListOf<String>()
     val uidListS = mutableListOf<String>()
 
@@ -45,10 +45,9 @@ class SocialsSignUpFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_signup_socials, container, false)
-
         googleSignIn = view.findViewById(R.id.google_signin)
-        auth = FirebaseAuth.getInstance()
         emailButton = view.findViewById(R.id.email_button)
+        auth = FirebaseAuth.getInstance()
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -59,6 +58,13 @@ class SocialsSignUpFragment: Fragment() {
         googleSignIn.setOnClickListener {
             signIn()
         }
+
+        /*
+        * purpose: adds teacher UIDs to a mutable list
+        * inputs: snapshot of db from the teacherlist node
+        * outputs: none
+        * TODO:
+        */
         viewModel.teacherListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
@@ -68,6 +74,13 @@ class SocialsSignUpFragment: Fragment() {
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
+
+        /*
+        * purpose: adds student UIDs to a mutable list
+        * inputs: snapshot of db from the studentlist node
+        * outputs: none
+        * TODO:
+        */
         viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
@@ -78,6 +91,7 @@ class SocialsSignUpFragment: Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
+        //go to email sign up page if selected
         emailButton.setOnClickListener{
             Navigation.createNavigateOnClickListener(R.id.action_socialsSignUpFragment_to_signUpFragment, null)
             view.findNavController().navigate(R.id.action_socialsSignUpFragment_to_signUpFragment)
@@ -86,8 +100,15 @@ class SocialsSignUpFragment: Fragment() {
        return view
     }
 
+    /*
+    * purpose: attempts to sign in with Google account
+    * inputs: snapshot of db from the teacherlist node
+    * outputs: none
+    * TODO: add navigation to appropriate home page on signup as well (currently only navigates when account already
+    *  exists, can remove the navigation part from there but leave the error messages and just handle navigation here)
+    */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode.equals(RC_SIGN_IN)) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -95,36 +116,44 @@ class SocialsSignUpFragment: Fragment() {
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
+                // Google Sign In failed, let user know
                 Log.w(TAG, "Google sign in failed", e)
-                // [START_EXCLUDE]
-
-                // [END_EXCLUDE]
             }
         }
     }
 
+    /*
+    * purpose: creates user in Firebase Auth based on Google credentials
+    * inputs: google credentials
+    * outputs: new user created in auth via Google credentials and/or they are navigated to a homepage, or error messages display
+    * TODO: if signin fails or they are signed in but account already exists, they are stuck on the current page, with
+    *  only clicking back to get where they need to be. We should auto-navigate for them to the appropriate page
+    */
     private fun firebaseAuthWithGoogle(idToken: String) {
-        // [START_EXCLUDE silent]
-        // [END_EXCLUDE]
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
+                    // Sign in success
                     Log.d(TAG, "signInWithCredential:success")
+
                     val user = auth.currentUser
                     viewModel.currentEmail = user?.email.toString()
 
-//check if this account is already a user of any kind
+                    //iterators to go through the lists of UIDs of all users
                     val uidIteratorT = uidListT.iterator()
                     val uidIteratorS = uidListS.iterator()
-//checking if user already has a teacher account associated with this google account
+
+                    //checking if user already has a teacher account associated with this google account
                     while(uidIteratorT.hasNext())
                     {
                         if (user?.uid.toString().equals(uidIteratorT.next()))
                         {
                             alreadyExists = true
+
+                            //if they are trying to sign up as a teacher, but already have a teacher account linked to this Google account
+                            //then just sign them in to that teacher account. But if they are trying to sign up as a student with that same
+                            // Google account, then we let them know that account already exists
                             if (teacher_slider_socials.isChecked)
                             {
                                 Navigation.createNavigateOnClickListener(R.id.action_socialsSignUpFragment_to_teacherHomeFragment, null)
@@ -132,14 +161,15 @@ class SocialsSignUpFragment: Fragment() {
                             }
                             else
                             {
-                                Toast.makeText(context, "Account already  exists!", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Account already exists!", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
-//checking if user already has a student account associated with this google account
+
+                    //checking if user already has a student account associated with this google account
                     while(uidIteratorS.hasNext())
                     {
-                        if (user?.uid.toString().equals(uidIteratorS.next()))
+                        if (user?.uid.toString().equals( uidIteratorS.next()))
                         {
                             alreadyExists = true
                             if (teacher_slider_socials.isChecked)
@@ -153,20 +183,28 @@ class SocialsSignUpFragment: Fragment() {
                             }
                         }
                     }
+
+                    //alreadyExists would be true if this Google account has a student or teacher account already tied to it
+                    //so since it is false, we can safely sign this user up with their google account
                     if (!alreadyExists)
                     {
-                        signup_db(user!!.email.toString(), user!!.displayName.toString(), user.uid)
+                        signupDb(user!!.email.toString(), user!!.displayName.toString(), user.uid)
                     }
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure")
-                    SignInFailed = true
+                    signInFailed = true
                 }
-
             }
     }
 
-    fun signup_db(email: String, name: String, index: String){
+    /*
+    * purpose: creates user in Firebase realtime db based on Google credentials
+    * inputs: email, name, and index extracted from the auth info taken from google sign in
+    * outputs: new user is added to either studentlist or teacherlist
+    * TODO:
+    */
+    fun signupDb(email: String, name: String, index: String){
         val userData: MutableMap<String, Any> = HashMap()
 
         userData["email"] = email
@@ -185,15 +223,20 @@ class SocialsSignUpFragment: Fragment() {
             Navigation.createNavigateOnClickListener(R.id.action_socialsSignUpFragment_to_studentHomeFragment, null)
             view?.findNavController()?.navigate(R.id.action_socialsSignUpFragment_to_studentHomeFragment)
         }
-
     }
 
+    /*
+    * purpose: starts intent to sign in with google
+    * inputs: none
+    * outputs: none
+    * TODO:
+    */
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent,
-            RC_SIGN_IN
-        )
+        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+
+    //some constants that need to be here for the google signin to work
     companion object {
         private const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001
