@@ -13,6 +13,7 @@ class UserViewModel : ViewModel() {
     lateinit var currentEmail:String
     var childrenCount:Long = 0
     val userList = mutableListOf<User>()
+    val classList = mutableListOf<Class>()
 
     //database instance for firebase and references to particular nodes within the db
     val database = Firebase.database
@@ -21,9 +22,6 @@ class UserViewModel : ViewModel() {
     val studentRef = database.getReference("studentlist")
     val studentListRef = database.reference.child("studentlist")
     val classRef = database.getReference("classlist")
-
-    val userList = mutableListOf<User>()
-    val classList = mutableListOf<Class>()
     val classListRef = database.reference.child("classlist")
 
     /*
