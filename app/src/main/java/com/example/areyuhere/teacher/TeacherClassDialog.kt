@@ -71,11 +71,14 @@ class TeacherClassDialog:DialogFragment() {
                 }
             }
             val classData: MutableMap<String, Any> = HashMap()
+            val teacherData: MutableMap<String, Any> = HashMap()
+            teacherData[classroomName.text.toString()] = index
             classData["code"] = "default"
             classData["name"] = classroomName.text.toString()
             classData["pw"] = password.text.toString()
             classData["teacher"] = auth.currentUser?.uid.toString()
             viewModel.classRef.child(index).updateChildren(classData)
+            viewModel.teacherListRef.child(auth.uid.toString()).child("classes taught").updateChildren(teacherData)
         }
         return view
     }
