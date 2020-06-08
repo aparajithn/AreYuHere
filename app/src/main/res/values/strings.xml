@@ -23,5 +23,7 @@
     <string name="displayname">Display Name:</string>
     <string name="teacherslider">I am a teacher </string>
     <string name="email">Email</string>
+    <string name="fab_content_desc">Click to add a new classroom</string>
+    <string name="classroom_new">Classroom Name:</string>
 
 </resources>

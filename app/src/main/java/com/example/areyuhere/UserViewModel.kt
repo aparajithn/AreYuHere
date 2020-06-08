@@ -21,6 +21,9 @@ class UserViewModel : ViewModel() {
     val studentRef = database.getReference("studentlist")
     val studentListRef = database.reference.child("studentlist")
     val classRef = database.getReference("classlist")
+
+    val userList = mutableListOf<User>()
+    val classList = mutableListOf<Class>()
     val classListRef = database.reference.child("classlist")
 
     /*

@@ -34,6 +34,10 @@
         <action
             android:id="@+id/action_teacherHomeFragment_to_teacherClassFragment"
             app:destination="@id/teacherClassFragment" />
+        <action
+            android:id="@+id/action_teacherHomeFragment_to_teacherClassDialog"
+            app:destination="@id/teacherClassDialog"
+            app:popUpTo="@id/teacherHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentCheckOutFragment"
@@ -80,4 +84,8 @@
             android:id="@+id/action_studentClassFragment_to_studentCheckOutFragment"
             app:destination="@id/studentCheckOutFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/teacherClassDialog"
+        android:name="com.example.areyuhere.teacher.TeacherClassDialog"
+        android:label="TeacherClassDialog" />
 </navigation>
