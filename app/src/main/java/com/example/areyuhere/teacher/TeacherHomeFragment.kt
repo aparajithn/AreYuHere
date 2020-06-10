@@ -132,7 +132,7 @@ class TeacherHomeFragment: Fragment() {
         //RECYCLER ITEM KEY PRESS
         override fun onClick(v: View?) {
            Toast.makeText(context,"You pressed me",Toast.LENGTH_SHORT).show()
-            viewModel.currentClass = this.c1.name
+            viewModel.currentClass = this.c1.cUID
             Navigation.createNavigateOnClickListener(R.id.action_teacherHomeFragment_to_teacherClassFragment)
             view?.findNavController()?.navigate(R.id.action_teacherHomeFragment_to_teacherClassFragment)
         }

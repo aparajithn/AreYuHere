@@ -32,13 +32,13 @@ class UserViewModel : ViewModel() {
     * TODO: currently codeRef is one location, this code will need to be sent to each teacher's particular classroom.
     *  Probably just return the code to teacher fragment and deal with placing the code in the correct location there.
     */
-    fun newCode() {
+    fun newCode(): String {
         code = (1..8)
             .map { i -> kotlin.random.Random.nextInt(0, charPool.size) }
             .map(charPool::get)
             .joinToString("")
 
-        codeRef.setValue(code)
+        return code
     }
 
     /*

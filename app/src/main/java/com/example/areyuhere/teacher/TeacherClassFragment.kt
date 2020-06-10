@@ -16,9 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.areyuhere.Class
 import com.example.areyuhere.R
 import com.example.areyuhere.User
 import com.example.areyuhere.UserViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -33,10 +35,11 @@ class TeacherClassFragment:Fragment() {
     private lateinit var userListRecyclerView:RecyclerView
     private lateinit var codeExpiry:TextView
     private lateinit var classTitle:TextView
+    private lateinit var auth: FirebaseAuth
     private var adapter: UserAdapter?=null
     private var counter = 0
     private var flag = 0
-
+    private var classTitleText = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,19 +55,49 @@ class TeacherClassFragment:Fragment() {
         codeExpiry.visibility = View.GONE
 
         classTitle = view.findViewById(R.id.class_Title)
-        classTitle.text = viewModel.currentClass
 
-        val timer = object: CountDownTimer(100000, 1000) {
+
+        auth = FirebaseAuth.getInstance()
+
+        //countdown timer for code expiry
+        val timer = object: CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 codeExpiry.visibility = View.VISIBLE
                 codeExpiry.text = "Your code will expire in ${millisUntilFinished/1000} seconds"
             }
 
             override fun onFinish() {
-                viewModel.codeRef.setValue("")
-                codeExpiry.text = R.string.expiry_text.toString()
+                viewModel.classListRef.child(viewModel.currentClass).child("code").setValue("")
+                codeExpiry.text = "Your code has expired!"
             }
         }
+
+        //gets the class title from the classes taught list inside  the current teacher and updates the title text accordingly
+        viewModel.teacherListRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    if (snapshot.key.toString() == auth.currentUser?.uid)
+                    {
+                        for (s2 in snapshot.children)
+                        {
+                            if (s2.key.toString() == "classes taught")
+                            {
+                                for (s3 in s2.children)
+                                {
+                                    if (s3.key.toString() == viewModel.currentClass)
+                                    {
+                                        classTitleText = s3.value.toString()
+                                        classTitle.text = classTitleText
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
 
         viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -85,7 +118,7 @@ class TeacherClassFragment:Fragment() {
                             counter++
                         }
                         viewModel.userList += user
-                        Log.d(TAG, user.toString())
+
                         updateUI()
                     }
                 }
@@ -94,20 +127,24 @@ class TeacherClassFragment:Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
-        viewModel.codeRef.addValueEventListener(object : ValueEventListener {
+        //gets this class's check in code and displays it
+        viewModel.classListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = dataSnapshot.getValue<String>()
-                codeDisplay.text = value
-
+                for (s1 in dataSnapshot.children)
+                {
+                    if (s1.key.toString() == viewModel.currentClass)
+                    {
+                        for (s2 in s1.children)
+                        {
+                            if (s2.key.toString() == "code")
+                            codeDisplay.text = s2.value.toString()
+                        }
+                    }
+                }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
-
 
         codeGenerateButton.setOnClickListener{
             val dialogBuilder = context?.let { it1 -> AlertDialog.Builder(it1) }
@@ -132,18 +169,25 @@ class TeacherClassFragment:Fragment() {
             alert?.setTitle("Reset Status")
             // show alert dialog
             alert?.show()
-            viewModel.newCode()
-            timer.start()
+
+            //generates a new code and starts the timer for the code expiry only once the alert is closed
+            alert?.setOnCancelListener {
+                val newCode = viewModel.newCode()
+                viewModel.classListRef.child(viewModel.currentClass).child("code").setValue(newCode)
+                timer.start()
+            }
         }
         updateUI()
         return view
     }
+
     private fun updateUI(){
         val users = viewModel.userList
-        Log.d(TAG,users.toString())
+
         adapter = UserAdapter(users)
         userListRecyclerView.adapter = adapter
     }
+
     private inner class UserHolder(view:View)
         :RecyclerView.ViewHolder(view),View.OnClickListener{
         private lateinit var user: User
