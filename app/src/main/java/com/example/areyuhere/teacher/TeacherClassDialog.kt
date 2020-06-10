@@ -72,7 +72,7 @@ class TeacherClassDialog:DialogFragment() {
             }
             val classData: MutableMap<String, Any> = HashMap()
             val teacherData: MutableMap<String, Any> = HashMap()
-            teacherData[classroomName.text.toString()] = index
+            teacherData[index] = classroomName.text.toString()
             classData["code"] = "default"
             classData["name"] = classroomName.text.toString()
             classData["pw"] = password.text.toString()
