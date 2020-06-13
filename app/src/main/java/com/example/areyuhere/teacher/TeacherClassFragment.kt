@@ -99,6 +99,8 @@ class TeacherClassFragment:Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
+        //gets list of students from studentlist and displays them on recyclerview
+        //TODO: make this get current class student list
         viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 viewModel.userList.clear()
@@ -137,7 +139,9 @@ class TeacherClassFragment:Fragment() {
                         for (s2 in s1.children)
                         {
                             if (s2.key.toString() == "code")
-                            codeDisplay.text = s2.value.toString()
+                            {
+                                codeDisplay.text = s2.value.toString()
+                            }
                         }
                     }
                 }

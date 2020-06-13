@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -21,18 +22,18 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 
 
-private const val TAG = "StudentHome"
+private const val TAG = "StudentClass"
 
 class StudentClassFragment:Fragment() {
     val viewModel: UserViewModel by activityViewModels()
-    private lateinit var check_in_button:Button
-    private lateinit var code_edittext:EditText
-    private lateinit var checkin_code:String
+    private lateinit var checkInButton:Button
+    private lateinit var codeEditText:EditText
+    private lateinit var titleText:TextView
+    private lateinit var checkinCode:String
     private lateinit var auth: FirebaseAuth
     private lateinit var status:String
-    var flag = false
-    var i_d = ""
-    var realID = ""
+    private var classTitleText = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,42 +42,65 @@ class StudentClassFragment:Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_studentclass, container, false)
 
-        check_in_button = view.findViewById(R.id.checkin_button)
-        code_edittext = view.findViewById(R.id.code)
-        //Read code in database
-        viewModel.codeRef.addValueEventListener(object : ValueEventListener {
+        checkInButton = view.findViewById(R.id.checkin_button)
+        codeEditText = view.findViewById(R.id.code)
+        titleText = view.findViewById(R.id.class_Title)
+        auth = FirebaseAuth.getInstance()
+
+        //gets the class title from the classes enrolled in inside  the current student and updates the title text accordingly
+        viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val value = dataSnapshot.getValue<String>()
-                checkin_code = value.toString()
+                for (snapshot in dataSnapshot.children) {
+                    if (snapshot.key.toString() == auth.currentUser?.uid)
+                    {
+                        for (s2 in snapshot.children)
+                        {
+                            if (s2.key.toString() == "enrolled classes")
+                            {
+                                for (s3 in s2.children)
+                                {
+                                    if (s3.key.toString() == viewModel.currentClass)
+                                    {
+                                        classTitleText = s3.value.toString()
+                                        titleText.text = classTitleText
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+
+        //Read code in database
+        viewModel.classListRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (s1 in dataSnapshot.children)
+                {
+                    if (s1.key.toString() == viewModel.currentClass)
+                    {
+                        for (s2 in s1.children)
+                        {
+                            if (s2.key.toString() == "code")
+                            {
+                                checkinCode = s2.key.toString()
+                            }
+                        }
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {}
         })
-        viewModel.studentListRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.d(TAG,dataSnapshot.childrenCount.toString())
-                    for (snapshot in dataSnapshot.children) {
-                        i_d=snapshot.key.toString()
-                        for(s2 in snapshot.children){
-                            if(s2.value==viewModel.currentEmail){
-                                status = s2.value.toString()
-                                viewModel.id=i_d
-                            }
 
-                            status = s2.value.toString()
-                        }
-
-                    }
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {}
-            })
-
-
-        check_in_button.setOnClickListener{
-            if(code_edittext.text.toString().equals(checkin_code) && !code_edittext.text.toString().isNullOrEmpty()) {
-                Log.d(TAG,"Navigating to student checkout")
-                viewModel.studentRef.child(viewModel.id).child("status").setValue("T")
+        //set student status to true for today if they typed in the correct code
+        //TODO: make and set some value to true in viewmodel that lets student home know this student is already
+        // checked in to this class so that in case they reopen app all they have to do is check out
+        checkInButton.setOnClickListener{
+            if(codeEditText.text.toString().equals(checkinCode) && !codeEditText.text.toString().isNullOrEmpty()) {
+                viewModel.classListRef.child(viewModel.currentClass).child("enrolled students").child(auth.currentUser!!.uid).setValue("T")
                 Navigation.createNavigateOnClickListener(R.id.action_studentClassFragment_to_studentCheckOutFragment)
                 view.findNavController().navigate(R.id.action_studentClassFragment_to_studentCheckOutFragment)
                 Toast.makeText(context, "Checked in!", Toast.LENGTH_SHORT)

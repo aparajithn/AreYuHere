@@ -5,52 +5,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/studentList"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/class_Title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/class_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="ClassTitle"
+        android:textColor="#000000"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/code_generate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="150dp"
-        android:layout_marginBottom="20dp"
+
+        android:layout_marginTop="30dp"
         android:text="@string/generate_code"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/studentList"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/studentList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/code_display" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/studentList"
-        android:layout_width="700dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/code_display"
-        android:layout_width="134dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="TextView"
         android:textColor="#000000"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/studentList"
-        app:layout_constraintEnd_toStartOf="@+id/code_generate"
-        app:layout_constraintStart_toStartOf="parent"></TextView>
+        app:layout_constraintEnd_toStartOf="@+id/studentList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/code_expiry" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/code_expiry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="40dp"
+        android:elevation="20dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="sample text"
         android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/code_generate"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/studentList"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/class_Title" />
 </androidx.constraintlayout.widget.ConstraintLayout>

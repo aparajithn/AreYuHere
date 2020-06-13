@@ -18,7 +18,6 @@ class UserViewModel : ViewModel() {
 
     //database instance for firebase and references to particular nodes within the db
     val database = Firebase.database
-    val codeRef = database.getReference("code")
     val teacherListRef = database.reference.child("teacherlist")
     val studentRef = database.getReference("studentlist")
     val studentListRef = database.reference.child("studentlist")
