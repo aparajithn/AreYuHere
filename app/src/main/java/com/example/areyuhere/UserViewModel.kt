@@ -49,8 +49,8 @@ class UserViewModel : ViewModel() {
     *  for this class
     */
     fun resetStatus(){
-        for(count in 1 until childrenCount+1){
-            studentRef.child(count.toString()).child("status").setValue("F")
+        for(count in 0 until childrenCount){
+            classListRef.child(currentClass).child("enrolled students").child(userList[count.toInt()].id).child("status").setValue("F")
         }
     }
 

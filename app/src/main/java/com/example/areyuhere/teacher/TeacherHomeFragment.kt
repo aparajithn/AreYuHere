@@ -133,6 +133,7 @@ class TeacherHomeFragment: Fragment() {
         //RECYCLER ITEM KEY PRESS
         override fun onClick(v: View?) {
             viewModel.currentClass = this.c1.cUID
+            viewModel.userList.clear()
             Navigation.createNavigateOnClickListener(R.id.action_teacherHomeFragment_to_teacherClassFragment)
             view?.findNavController()?.navigate(R.id.action_teacherHomeFragment_to_teacherClassFragment)
         }
