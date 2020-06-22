@@ -14,6 +14,9 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.areyuhere.Class
 import com.example.areyuhere.R
 import com.example.areyuhere.UserViewModel
@@ -79,6 +82,7 @@ class TeacherClassDialog:DialogFragment() {
             classData["teacher"] = auth.currentUser?.uid.toString()
             viewModel.classRef.child(index).updateChildren(classData)
             viewModel.teacherListRef.child(auth.uid.toString()).child("classes taught").updateChildren(teacherData)
+            dismiss()
         }
         return view
     }

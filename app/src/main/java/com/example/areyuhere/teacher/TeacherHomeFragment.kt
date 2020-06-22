@@ -1,13 +1,12 @@
 package com.example.areyuhere.teacher
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -81,33 +80,32 @@ class TeacherHomeFragment: Fragment() {
 
 
         addClassroom.setOnClickListener{
-            Navigation.createNavigateOnClickListener(R.id.action_teacherHomeFragment_to_teacherClassDialog)
-            view.findNavController()
-                .navigate(R.id.action_teacherHomeFragment_to_teacherClassDialog)
-//            var index = viewModel.newUID()
-//            val uidIteratorC = uidListC.iterator()
-//            flag = true
-//            while(flag) {
-//                flag = false
-//                while (uidIteratorC.hasNext()) {
-//                    if (index.equals(uidIteratorC.next())) {
-//                        index = viewModel.newUID()
-//                        flag = true
-//                    }
-//
-//                }
-//            }
-//            val classData: MutableMap<String, Any> = HashMap()
-//            classData["code"] = "test"
-//            classData["name"] = "Communicatio Networks"
-//            classData["pw"] = "test123"
-//            classData["teacher"] = auth.currentUser?.uid.toString()
-//            viewModel.classRef.child(index).updateChildren(classData)
+
+            val factory = LayoutInflater.from(context)
+            val createClassDialogView: View = factory.inflate(R.layout.dialog_create_class, null)
+            val createClassDialog: AlertDialog = AlertDialog.Builder(context).create()
+            createClassDialog.setView(createClassDialogView)
+            createClassDialogView.findViewById<View>(R.id.submit_button)
+                .setOnClickListener{
+                    Log.d("ok", "okok")
+                    createClassDialog.dismiss()
+                }
+
+
+
+            createClassDialog.show()
+
+
+
+//            Navigation.createNavigateOnClickListener(R.id.action_teacherHomeFragment_to_teacherClassDialog)
+//            view.findNavController()
+//                .navigate(R.id.action_teacherHomeFragment_to_teacherClassDialog)
 
         }
         updateUI()
         return view
     }
+
     private fun updateUI(){
         val classes = viewModel.classList
         adapter = ClassAdapter(classes)
