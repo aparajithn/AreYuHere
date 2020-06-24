@@ -28,8 +28,6 @@ class UserViewModel : ViewModel() {
     * purpose: generates a new 8 character alphanumeric code to be used for checking a student into class
     * inputs: none
     * outputs: code updated in Firebase Realtime DB
-    * TODO: currently codeRef is one location, this code will need to be sent to each teacher's particular classroom.
-    *  Probably just return the code to teacher fragment and deal with placing the code in the correct location there.
     */
     fun newCode(): String {
         code = (1..8)
@@ -44,9 +42,6 @@ class UserViewModel : ViewModel() {
     * purpose: resets everyone in class's checked-in status to false
     * inputs: none
     * outputs: updates checked-in status for each student in Firebase Realtime DB
-    * TODO: this is how it worked with the one-classroom setup we had during 475 course. Now that scope of project has increased,
-    *  we will need to use a reference to the class, get into student list and reset through there. Will need an input of the Ref
-    *  for this class
     */
     fun resetStatus(){
         for(count in 0 until childrenCount){
