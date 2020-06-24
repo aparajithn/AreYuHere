@@ -2,10 +2,11 @@ package com.example.areyuhere.teacher
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -23,14 +24,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.dialog_create_class.*
 
+private var flag = false
 
-class TeacherHomeFragment: Fragment() {
+class TeacherHomeFragment : Fragment() {
     val viewModel: UserViewModel by activityViewModels()
     private lateinit var auth: FirebaseAuth
-    private lateinit var addClassroom:FloatingActionButton
+    private lateinit var addClassroom: FloatingActionButton
     private lateinit var teacherClassList: RecyclerView
-    private var adapter : ClassAdapter?=null
+    private lateinit var classroomName:EditText
+    private lateinit var password:EditText
+    val uidListC = mutableListOf<String>()
+    private var adapter: ClassAdapter? = null
 
 
     override fun onCreateView(
@@ -41,7 +47,8 @@ class TeacherHomeFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_teacherhome, container, false)
         addClassroom = view.findViewById(R.id.add_classroom)
         teacherClassList = view.findViewById(R.id.recylerview_teacher_classes)
-        teacherClassList.layoutManager = GridLayoutManager(context,2,LinearLayoutManager.VERTICAL,false)
+        teacherClassList.layoutManager =
+            GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         teacherClassList.setHasFixedSize(true)
         auth = FirebaseAuth.getInstance()
 
@@ -56,18 +63,18 @@ class TeacherHomeFragment: Fragment() {
                         if (s2.key.toString().equals("code")) {
                             clazz.code = s2.value.toString()
                         }
-                        if(s2.key.toString().equals("name")){
+                        if (s2.key.toString().equals("name")) {
                             clazz.name = s2.value.toString()
                         }
-                        if(s2.key.toString().equals("pw")){
+                        if (s2.key.toString().equals("pw")) {
                             clazz.pw = s2.value.toString()
                         }
-                        if(s2.key.toString().equals("teacher")){
+                        if (s2.key.toString().equals("teacher")) {
                             clazz.tUID = s2.value.toString()
                         }
 
                     }
-                    if(clazz.tUID.equals(auth.currentUser?.uid.toString())) {
+                    if (clazz.tUID.equals(auth.currentUser?.uid.toString())) {
                         viewModel.classList.add(clazz)
                     }
                     updateUI()
@@ -79,50 +86,46 @@ class TeacherHomeFragment: Fragment() {
 
 
 
-        addClassroom.setOnClickListener{
+        addClassroom.setOnClickListener {
 
             val factory = LayoutInflater.from(context)
             val createClassDialogView: View = factory.inflate(R.layout.dialog_create_class, null)
             val createClassDialog: AlertDialog = AlertDialog.Builder(context).create()
             createClassDialog.setView(createClassDialogView)
+            classroomName = createClassDialogView.findViewById(R.id.dialog_classroomname)
+            password = createClassDialogView.findViewById(R.id.dialog_password)
             createClassDialogView.findViewById<View>(R.id.submit_button)
-                .setOnClickListener{
-                    Log.d("ok", "okok")
+                .setOnClickListener {
+                    addClass()
+
                     createClassDialog.dismiss()
+
+
                 }
-
-
-
             createClassDialog.show()
-
-
-
-//            Navigation.createNavigateOnClickListener(R.id.action_teacherHomeFragment_to_teacherClassDialog)
-//            view.findNavController()
-//                .navigate(R.id.action_teacherHomeFragment_to_teacherClassDialog)
-
         }
         updateUI()
         return view
     }
 
-    private fun updateUI(){
+    private fun updateUI() {
         val classes = viewModel.classList
         adapter = ClassAdapter(classes)
         teacherClassList.adapter = adapter
     }
-    private inner class ClassHolder(view:View)
-        :RecyclerView.ViewHolder(view),View.OnClickListener{
+
+    private inner class ClassHolder(view: View) : RecyclerView.ViewHolder(view),
+        View.OnClickListener {
         private lateinit var c1: Class
-        private val cardView:CardView = itemView.findViewById(R.id.list_item_card)
-        private val classNameTextView:TextView = itemView.findViewById(R.id.class_name)
+        private val cardView: CardView = itemView.findViewById(R.id.list_item_card)
+        private val classNameTextView: TextView = itemView.findViewById(R.id.class_name)
 
 
-        init{
+        init {
             cardView.setOnClickListener(this)
         }
 
-        fun bind(c1:Class){
+        fun bind(c1: Class) {
             this.c1 = c1
             classNameTextView.text = this.c1.name
 
@@ -133,13 +136,15 @@ class TeacherHomeFragment: Fragment() {
             viewModel.currentClass = this.c1.cUID
             viewModel.userList.clear()
             Navigation.createNavigateOnClickListener(R.id.action_teacherHomeFragment_to_teacherClassFragment)
-            view?.findNavController()?.navigate(R.id.action_teacherHomeFragment_to_teacherClassFragment)
+            view?.findNavController()
+                ?.navigate(R.id.action_teacherHomeFragment_to_teacherClassFragment)
         }
     }
-    private inner class ClassAdapter(var classes:List<Class>)
-        :RecyclerView.Adapter<ClassHolder>(){
+
+    private inner class ClassAdapter(var classes: List<Class>) :
+        RecyclerView.Adapter<ClassHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_classrooms_card,parent,false)
+            val view = layoutInflater.inflate(R.layout.list_item_classrooms_card, parent, false)
             return ClassHolder(view)
         }
 
@@ -151,5 +156,31 @@ class TeacherHomeFragment: Fragment() {
             holder.bind(c1)
         }
 
+    }
+
+    private fun addClass() {
+        var index = viewModel.newUID()
+        val uidIteratorC = uidListC.iterator()
+        flag = true
+        while (flag) {
+            flag = false
+            while (uidIteratorC.hasNext()) {
+                if (index.equals(uidIteratorC.next())) {
+                    index = viewModel.newUID()
+                    flag = true
+                }
+
+            }
+        }
+        val classData: MutableMap<String, Any> = HashMap()
+        val teacherData: MutableMap<String, Any> = HashMap()
+        teacherData[index] = classroomName.text.toString()
+        classData["code"] = "default"
+        classData["name"] = classroomName.text.toString()
+        classData["pw"] = password.text.toString()
+        classData["teacher"] = auth.currentUser?.uid.toString()
+        viewModel.classRef.child(index).updateChildren(classData)
+        viewModel.teacherListRef.child(auth.uid.toString()).child("classes taught")
+            .updateChildren(teacherData)
     }
 }
