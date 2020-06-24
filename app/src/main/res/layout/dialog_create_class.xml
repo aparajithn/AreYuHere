@@ -29,7 +29,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dialog_classroomname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.google.android.material.textfield.TextInputEditText>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,29 +49,31 @@
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/outline_password_24">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/dialog_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"></com.google.android.material.textfield.TextInputEditText>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialog_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Verification Method"
-        android:layout_margin="20dp"></com.google.android.material.textview.MaterialTextView>
+        android:layout_margin="20dp" />
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checkedButton="@+id/verification_status"
         android:orientation="horizontal">
         <RadioButton
-            android:id="@+id/first"
+            android:id="@+id/alphanumeric_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alphanumeric Code"/>
+            android:text="Alphanumeric Code"
+            android:checked="true"/>
         <RadioButton
-            android:id="@+id/second"
+            android:id="@+id/qr_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -82,5 +84,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:id="@+id/submit_button"></Button>
+        android:id="@+id/submit_button" />
 </LinearLayout>

@@ -55,7 +55,6 @@ class TeacherClassFragment : Fragment() {
 
         classTitle = view.findViewById(R.id.class_Title)
 
-
         auth = FirebaseAuth.getInstance()
 
         //countdown timer for code expiry
@@ -93,7 +92,7 @@ class TeacherClassFragment : Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
-        //gets this class's enrolled students list and adds it to recycler view via viewmodel middleman
+        //gets this class's enrolled students list and adds it to recycler view via viewmodel middleman. Also updates codeDisplay's text and visibility status TODO: make qr code display
         viewModel.classListRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 viewModel.userList.clear()
@@ -119,6 +118,17 @@ class TeacherClassFragment : Fragment() {
                                     updateUI()
                                 }
                             }
+                            else if (s2.key.toString() == "verification method")
+                            {
+                                if (s2.value.toString() == "alphanumeric")
+                                {
+                                    codeDisplay.visibility = View.VISIBLE
+                                }
+                                else if (s2.value.toString() == "qr")
+                                {
+                                    codeDisplay.visibility = View.GONE  //View.INVISIBLE will still take up layout space. TODO: figure out which is needed gone or invisible
+                                }
+                            }
                         }
                     }
                 }
@@ -132,7 +142,6 @@ class TeacherClassFragment : Fragment() {
                 val newCode = viewModel.newCode()
                 viewModel.classListRef.child(viewModel.currentClass).child("code").setValue(newCode)
                 timer.start()
-                //TODO: ABU ADD INVISIBLE TEXTVIEW THAT GETS TEXT HERE IF EMPTY CLASS AND BECOMES VISIBLE :)
             } else {
 
                 val dialogBuilder = context?.let { it1 -> AlertDialog.Builder(it1) }

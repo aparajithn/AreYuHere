@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -35,6 +33,8 @@ class TeacherHomeFragment : Fragment() {
     private lateinit var teacherClassList: RecyclerView
     private lateinit var classroomName:EditText
     private lateinit var password:EditText
+    private lateinit var qrCode:RadioButton
+    private lateinit var alphanumericCode:RadioButton
     val uidListC = mutableListOf<String>()
     private var adapter: ClassAdapter? = null
 
@@ -94,6 +94,8 @@ class TeacherHomeFragment : Fragment() {
             createClassDialog.setView(createClassDialogView)
             classroomName = createClassDialogView.findViewById(R.id.dialog_classroomname)
             password = createClassDialogView.findViewById(R.id.dialog_password)
+            qrCode = createClassDialogView.findViewById(R.id.qr_code)
+            alphanumericCode = createClassDialogView.findViewById(R.id.alphanumeric_code)
             createClassDialogView.findViewById<View>(R.id.submit_button)
                 .setOnClickListener {
                     addClass()
@@ -179,6 +181,14 @@ class TeacherHomeFragment : Fragment() {
         classData["name"] = classroomName.text.toString()
         classData["pw"] = password.text.toString()
         classData["teacher"] = auth.currentUser?.uid.toString()
+        if (alphanumericCode.isChecked)
+        {
+            classData["verification method"] = "alphanumeric"
+        }
+        else //qr must be checked
+        {
+            classData["verification method"] = "qr"
+        }
         viewModel.classRef.child(index).updateChildren(classData)
         viewModel.teacherListRef.child(auth.uid.toString()).child("classes taught")
             .updateChildren(teacherData)
